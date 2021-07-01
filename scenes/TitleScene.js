@@ -7,11 +7,11 @@ export default class TitleScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('tree','./../Assets/tree.png');
-        this.load.image('leaf','./../Assets/leaf.png');
+        this.load.image('tree','./../assets/tree.png');
+        this.load.image('leaf','./../assets/leaf.png');
 
         this.load.audio('music', 
-            './../Assets/testPHASER.ogg'
+            './../assets/testPHASER.ogg'
         );
     }
 
