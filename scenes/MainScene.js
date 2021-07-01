@@ -1,10 +1,10 @@
 import { initialiseEpidermis } from "../src/epidermis.js";
 import { initialiseStatsText, statsTextEvents } from "../src/statText.js";
 import { initialiseMolecules, moleculeTimedEvents } from "../src/CO2_H2O.js";
-import { initialiseStomata, makeStomata, stomatalMovement } from "../src/Cells/stomata.js";
+import { initialiseStomata, makeStomata, stomatalMovement } from "../src/cells/stomata.js";
 import { cellButtonFunctions, initialiseCellButtons } from "../src/cellButtons.js";
-import { initialisePalisades, makePalisade } from "../src/Cells/palisade.js";
-import { intialiseSponges } from "../src/Cells/sponges.js";
+import { initialisePalisades, makePalisade } from "../src/cells/palisade.js";
+import { intialiseSponges } from "../src/cells/sponges.js";
 import game from "../main.js";
 
 
@@ -17,18 +17,18 @@ export default class MainScene extends Phaser.Scene {
     }
 
     preload (){
-        this.load.image('epidermis','./../Assets/epidermis.png');
-        this.load.image('co2','./../Assets/co2.png');
-        this.load.image('h2o','./../Assets/h2o.png');
-        this.load.image('guardcell','./../Assets/guardcell.png');
-        this.load.image('pore','./../Assets/pore.png');
-        this.load.image('palisade','./../Assets/palisade.png');
-        this.load.image('sponge','./../Assets/sponge.png');
-        this.load.image('star', './../Assets/star.png');
-        this.load.image('arrow', './../Assets/arrow.png');
-        this.load.audio('entering', './../Assets/Entering.ogg');
-        this.load.audio('leaving', './../Assets/Leaving.ogg');
-        this.load.audio('photosynthesis','./../Assets/Photosynthesis.ogg');
+        this.load.image('epidermis','./../assets/epidermis.png');
+        this.load.image('co2','./../assets/co2.png');
+        this.load.image('h2o','./../assets/h2o.png');
+        this.load.image('guardcell','./../assets/guardcell.png');
+        this.load.image('pore','./../assets/pore.png');
+        this.load.image('palisade','./../assets/palisade.png');
+        this.load.image('sponge','./../assets/sponge.png');
+        this.load.image('star', './../assets/star.png');
+        this.load.image('arrow', './../assets/arrow.png');
+        this.load.audio('entering', './../assets/Entering.ogg');
+        this.load.audio('leaving', './../assets/Leaving.ogg');
+        this.load.audio('photosynthesis','./../assets/Photosynthesis.ogg');
     }
 
     create (){
