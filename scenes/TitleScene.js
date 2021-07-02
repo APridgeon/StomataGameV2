@@ -7,8 +7,8 @@ export default class TitleScene extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('tree','./../assets/tree.png');
-        this.load.image('leaf','./../assets/leaf.png');
+        this.load.image('tree','./assets/tree.png');
+        this.load.image('leaf','./assets/leaf.png');
 
         this.load.audio('music', 
             './../assets/testPHASER.ogg'
