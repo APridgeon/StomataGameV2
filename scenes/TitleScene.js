@@ -10,7 +10,7 @@ export default class TitleScene extends Phaser.Scene {
         this.load.image('tree','./../assets/tree.png');
         this.load.image('leaf','./../assets/leaf.png');
 
-        this.load.audio('music', './../assets/testPHASER.ogg');
+        //this.load.audio('music', './../assets/testPHASER.ogg');
     }
 
     create () {
@@ -24,10 +24,10 @@ export default class TitleScene extends Phaser.Scene {
         this.add.image((isMobile) ? 325 : 300, (isMobile) ? 220 : 450,'leaf').setScale(1.5)
 
 
-        this.soundTest = this.sound.add('music');
-        this.soundTest.play({
-            loop: true
-        });
+        //this.soundTest = this.sound.add('music');
+        //this.soundTest.play({
+        //    loop: true
+        //});
 
         console.log(this.scene)
         this.input.on('pointerdown', () => {
