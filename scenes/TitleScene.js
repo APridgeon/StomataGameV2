@@ -11,7 +11,7 @@ export default class TitleScene extends Phaser.Scene {
         this.load.image('leaf','./assets/leaf.png');
 
         this.load.audio('music', 
-            './../assets/testPHASER.ogg'
+            './assets/testPHASER.ogg'
         );
     }
 
