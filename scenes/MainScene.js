@@ -23,7 +23,7 @@ export default class MainScene extends Phaser.Scene {
     preload (){
         this.load.image('epidermis','./assets/epidermis.png');
         this.load.image('co2','./assets/co2.png');
-        this.load.image('h2o','./assets/h2o.png');
+        this.load.image('h2o','./assets/H2O.png');
         this.load.image('guardcell','./assets/guardcell.png');
         this.load.image('pore','./assets/pore.png');
         this.load.image('palisade','./assets/palisade.png');
