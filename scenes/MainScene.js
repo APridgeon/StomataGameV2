@@ -29,7 +29,7 @@ export default class MainScene extends Phaser.Scene {
         this.load.image('palisade','./assets/palisade.png');
         this.load.image('sponge','./assets/sponge.png');
         this.load.image('star', './assets/star.png');
-        this.load.image('arrow', './assets/arrow.png');
+        this.load.image('arrow', './assets/Arrow.png');
         //this.load.audio('entering', './assets/Entering.ogg');
         //this.load.audio('leaving', './assets/Leaving.ogg');
         //this.load.audio('photosynthesis','./assets/Photosynthesis.ogg');
