@@ -18,7 +18,7 @@ export default class InstructScene extends Phaser.Scene {
         this.load.image('pore','./assets/pore.png');
         this.load.audio('music', './assets/testPHASER.ogg');
         this.load.image('co2','./assets/co2.png');
-        this.load.image('h2o','./assets/H2O.png');
+        this.load.image('h2o','./assets/h2o.png');
         this.load.image('palisade','./assets/palisade.png');
 
     }
@@ -32,7 +32,7 @@ export default class InstructScene extends Phaser.Scene {
          'Take in CO2',
           { fontSize: (isMobile) ? '17px' : '20px', fill: '#423c56' , fontFamily: '"font1"'});
         this.add.text((isMobile) ? 50 : 50, (isMobile) ? 70 : 150,
-        'Prevent H2O \nloss',
+        'Prevent water \nloss',
         { fontSize: (isMobile) ? '17px' : '20px', fill: '#423c56' , fontFamily: '"font1"'});
 
         //Stomata

@@ -2,6 +2,7 @@
 var isMobile = (window.innerWidth < 500 || window.innerHeight < 500) ? true : false;
 import game from "../game.js";
 
+
 export default class TitleScene extends Phaser.Scene {
     constructor () {
         super('Title')
@@ -15,6 +16,9 @@ export default class TitleScene extends Phaser.Scene {
     }
 
     create () {
+        let mainScene = this.scene.get('Main');
+        mainScene.data.reset();
+
         this.background = this.add.rectangle(-10, -10, (isMobile) ? 670 : 620, (isMobile) ? 370 : 620, 0xa0b335, 0.5)
             .setOrigin(0,0)
             .setInteractive();
@@ -50,8 +54,6 @@ export default class TitleScene extends Phaser.Scene {
             
         })
 
-
-        console.log(this.scene)
         this.background.on('pointerdown', () => {
             this.scene.start('Instruct', {game});
         })

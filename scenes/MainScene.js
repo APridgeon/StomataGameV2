@@ -5,6 +5,7 @@ import { initialiseStomata, makeStomata, stomatalMovement } from "../src/cells/s
 import { cellButtonFunctions, initialiseCellButtons } from "../src/cellButtons.js";
 import { initialisePalisades, makePalisade } from "../src/cells/palisade.js";
 import { intialiseSponges } from "../src/cells/sponges.js";
+import { gameOverInit } from "../src/gameOver.js";
 let game;
 
 
@@ -23,13 +24,13 @@ export default class MainScene extends Phaser.Scene {
     preload (){
         this.load.image('epidermis','./assets/epidermis.png');
         this.load.image('co2','./assets/co2.png');
-        this.load.image('h2o','./assets/H2O.png');
+        this.load.image('h2o','./assets/h2o.png');
         this.load.image('guardcell','./assets/guardcell.png');
         this.load.image('pore','./assets/pore.png');
         this.load.image('palisade','./assets/palisade.png');
         this.load.image('sponge','./assets/sponge.png');
         this.load.image('star', './assets/star.png');
-        this.load.image('arrow', './assets/Arrow.png');
+        this.load.image('arrow', './assets/arrow.png');
         //this.load.audio('entering', './assets/Entering.ogg');
         //this.load.audio('leaving', './assets/Leaving.ogg');
         //this.load.audio('photosynthesis','./assets/Photosynthesis.ogg');
@@ -37,8 +38,6 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create (){
-
-        console.log(this.test);
         
         this.isMobile = isMobile;
 
@@ -88,9 +87,6 @@ export default class MainScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', (item1) => destroyOutOfBounds(item1, this));
 
 
-        //GameOver
-        this.data.set('gameBegun', false);
-
         //Setting up stats and text
         this.data.set('waterLost', 0);
         this.data.set('carbonGain', 0);
@@ -137,6 +133,8 @@ export default class MainScene extends Phaser.Scene {
 
         initialiseCellButtons(this);
         cellButtonFunctions(this, game);
+
+        gameOverInit(this, game);
             
     }
 
