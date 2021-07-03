@@ -18,7 +18,7 @@ export default class InstructScene extends Phaser.Scene {
         this.load.image('pore','./assets/pore.png');
         this.load.audio('music', './assets/testPHASER.ogg');
         this.load.image('co2','./assets/co2.png');
-        this.load.image('h2o','./assets/h2o.png');
+        this.load.image('h2o','./assets/H2O.png');
         this.load.image('palisade','./assets/palisade.png');
 
     }
