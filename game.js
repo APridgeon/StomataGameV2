@@ -29,6 +29,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+game.canvas.id = "game";
 
 
 export default game;
