@@ -76,22 +76,36 @@ export default class PointsScene extends Phaser.Scene {
         this.add.bitmapText(100, 130, 'casual', 'Water Use Efficiency: ' + (carbonGain/waterLost).toFixed(3), 15)
                 .setTint(0x423c56);  
 
-        this.name = this.add.bitmapText(100, 320, 'casual', 'Name: ', 15)
+        this.name = this.add.bitmapText(100, 305, 'casual', 'Name: ', 25)
+            .setAlpha(0)
             .setTint(0x423c56);  
 
+        this.tweens.add({
+            targets: this.name,
+            ease: 'sine',
+            alpha: 1, 
+            hold: 200,
+            yoyo: true,
+            duration: 500,
+            loop: -1
+        })
 
         //text input
 
         let chars1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' ];
         let chars2 = ['K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'];
         let chars3 = ['U', 'V', 'W', 'X', 'Y', 'Z', '.', '-', ];
-        // let text = this.add.bitmapText(175, 175, 'casual', 'ABCDEFGHIJ\n\nKLMNOPQRST\n\nUVWXYZ.-', 20, 0)
-        //     .setLetterSpacing(60);
-
         let charObjectArray = []
 
         for(let i = 0; i < chars1.length; i++){
-            let text = this.add.bitmapText((30 * i) + 190, 180, 'casual', chars1[i], 20)
+            let background = this.add.rectangle((30 * i) + 188.5, 192, 21, 35, 0xff0000, 0.4)
+                .setOrigin(0.5, 0.5)
+                .setInteractive()
+                .on("pointerover", () => {
+                    this.alpha = 0.9
+                });
+            let text = this.add.bitmapText((30 * i) + 190, 190, 'casual', chars1[i], 20)
+                .setOrigin(0.5, 0.5)
                 .setInteractive()
                 .on('pointerdown', () => {
                     text.setTint(0xff0000)
@@ -103,7 +117,10 @@ export default class PointsScene extends Phaser.Scene {
             charObjectArray.push(text);
         }
         for(let i = 0; i < chars2.length; i++){
-            let text = this.add.bitmapText((30 * i) + 190, 220, 'casual', chars2[i], 20)
+            let background = this.add.rectangle((30 * i) + 188.5, 232, 21, 35, 0xff0000, 0.4)
+                .setOrigin(0.5, 0.5);
+            let text = this.add.bitmapText((30 * i) + 190, 230, 'casual', chars2[i], 20)
+                .setOrigin(0.5, 0.5)
                 .setInteractive()
                 .on('pointerdown', () => {
                     text.setTint(0xff0000)
@@ -115,7 +132,10 @@ export default class PointsScene extends Phaser.Scene {
             charObjectArray.push(text);
         }
         for(let i = 0; i < chars3.length; i++){
-            let text = this.add.bitmapText((30 * i) + 190, 260, 'casual', chars3[i], 20)
+            let background = this.add.rectangle((30 * i) + 188.5, 272, 21, 35, 0xff0000, 0.4)
+                .setOrigin(0.5, 0.5);
+            let text = this.add.bitmapText((30 * i) + 190, 270, 'casual', chars3[i], 20)
+            .setOrigin(0.5, 0.5)
             .setInteractive()
             .on('pointerdown', () => {
                 text.setTint(0xff0000)
@@ -127,6 +147,11 @@ export default class PointsScene extends Phaser.Scene {
             charObjectArray.push(text);
         }
 
+        this.add.rectangle(500, 300, 50, 50, 0xff0000, 0.4)
+            .setInteractive()
+            .on('pointerdown', () => {
+                console.log(this.name.text)
+            });
         
         //http://phaser.io/examples/v3/view/input/keyboard/retro-leaderboard
 
