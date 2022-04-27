@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "you-are-a-leaf",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

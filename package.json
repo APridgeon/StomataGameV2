@@ -1,0 +1,27 @@
+{
+  "name": "youarealeaf_screensize",
+  "version": "1.0.0",
+  "description": "A science outreach game, where the player controls a leaf trying to conserve water while gaining CO2. Broadly, this introduces the player to the concept of gas exchange and methods by which plants try to regulate leaf gas exchange. The game is made using the phaser javascript library. All of the code is on github. All are welcome to build and improve on this.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/APridgeon/YouAreALeaf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/APridgeon/YouAreALeaf/issues"
+  },
+  "homepage": "https://github.com/APridgeon/YouAreALeaf#readme",
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "firebase": "^9.6.11",
+    "phaser": "^3.55.2"
+  },
+  "devDependencies": {
+    "@azerion/phaser-input": "^2.0.5"
+  }
+}
