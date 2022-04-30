@@ -1,13 +1,9 @@
 import { initialiseStomata, makeStomata } from "../src/Cells/stomata.js";
 
-let game;
 
 export default class InstructScene extends Phaser.Scene {
     constructor () {
         super('Instruct')
-    }
-    init (data) {
-        game = data.game;
     }
 
     preload () {
@@ -44,7 +40,7 @@ export default class InstructScene extends Phaser.Scene {
                 this.skipText.clearTint()
             })
             .on('pointerdown', () => {
-                this.scene.start('Points', {game});
+                this.scene.start('LeaderBoard', {game});
             });
         
         this.leaf = this.add.image(325, 220,'leaf')
@@ -488,7 +484,7 @@ export default class InstructScene extends Phaser.Scene {
                 onComplete: () => {
                     this.cameras.main.fadeOut(1000, 0,0,0);
                     this.cameras.main.once('camerafadeoutcomplete', () => { 
-                        this.scene.start('Main', {game});
+                        this.scene.start('Main');
                     })
                 }
             })
@@ -499,19 +495,19 @@ export default class InstructScene extends Phaser.Scene {
         this.speaker = this.add.image(625, 25, 'speaker')
             .setInteractive();
 
-        if(game.soundPlay == false){
+        if(this.sys.game.soundPlay == false){
             this.speaker.setTint(0xf00000);
-            game.soundTest.pause();
+            this.sys.game.soundTest.pause();
         };
 
         this.speaker.on('pointerdown', () => {
-            if(game.soundPlay == false){
-                game.soundTest.resume();
-                game.soundPlay = true;
+            if(this.sys.game.soundPlay == false){
+                this.sys.game.soundTest.resume();
+                this.sys.game.soundPlay = true;
                 this.speaker.clearTint();
             } else if(game.soundPlay == true){
-                game.soundTest.pause();
-                game.soundPlay = false;
+                this.sys.game.soundTest.pause();
+                this.sys.game.soundPlay = false;
                 this.speaker.setTint(0xf00000);
             }
             

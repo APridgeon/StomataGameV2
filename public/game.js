@@ -35,8 +35,10 @@ var config = {
     scene: [TitleScene, OrientationScene, InstructScene, MainScene, UIScene, PointsScene, LeaderBoardScene],
 };
 
+
+
 var game = new Phaser.Game(config);
 game.canvas.id = "game";
 
 
-export default game;
+export {game, config};

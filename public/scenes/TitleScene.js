@@ -1,12 +1,11 @@
 
 var isMobile = true// (window.innerWidth < 500 || window.innerHeight < 500) ? true : false;
-import game from "../game.js";
-
 
 export default class TitleScene extends Phaser.Scene {
     constructor () {
         super('Title')
     }
+
 
     preload () {
         this.load.image('tree','./assets/tree.png');
@@ -68,24 +67,24 @@ export default class TitleScene extends Phaser.Scene {
         this.add.image(325, 220,'leaf').setScale(1.5)
 
 
-        game.soundTest = game.sound.add('music');
-        game.soundTest.play({
+        this.sys.game.soundTest = this.sys.game.sound.add('music');
+        this.sys.game.soundTest.play({
             loop: true
         });
 
-        game.soundPlay = true;
+        this.sys.game.soundPlay = true;
 
         this.speaker = this.add.image(625, 25, 'speaker')
             .setInteractive();
 
         this.speaker.on('pointerdown', () => {
-            if(game.soundPlay == false){
-                game.soundTest.resume();
-                game.soundPlay = true;
+            if(this.sys.game.soundPlay == false){
+                this.sys.game.soundTest.resume();
+                this.sys.game.soundPlay = true;
                 this.speaker.clearTint();
-            } else if(game.soundPlay == true){
-                game.soundTest.pause();
-                game.soundPlay = false;
+            } else if(this.sys.game.soundPlay == true){
+                this.sys.game.soundTest.pause();
+                this.sys.game.soundPlay = false;
                 this.speaker.setTint(0xf00000);
             }
             
@@ -93,7 +92,7 @@ export default class TitleScene extends Phaser.Scene {
 
 
         this.input.on('pointerdown', () => {
-            this.scene.start('Orientation', {game});
+            this.scene.start('Orientation');
         })
     }
 

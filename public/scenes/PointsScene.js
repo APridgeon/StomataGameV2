@@ -2,7 +2,6 @@ import {app, auth, provider, signInWithPopup, writeUserData} from "./../src/fire
 
 
 var isMobile = (window.innerWidth < 500 || window.innerHeight < 500) ? true : false;
-let game;
 let waterLost;
 let carbonGain;
 
@@ -12,7 +11,6 @@ export default class PointsScene extends Phaser.Scene {
         super('Points')
     }
     init (data) {
-        game = data.game;
         waterLost = data.waterLost;
         carbonGain = data.carbonGain;
     }
@@ -186,9 +184,7 @@ export default class PointsScene extends Phaser.Scene {
                 if(name){
                     signInWithPopup(auth, provider)
                         .then(result => {
-                            console.log(name)
-                            writeUserData(122, 344, name);
-                            game.soundTest.stop();
+                            writeUserData(122, 3044, name);
                             this.scene.start('LeaderBoard');
                         });
                 } else {
@@ -212,19 +208,19 @@ export default class PointsScene extends Phaser.Scene {
         this.speaker = this.add.image((isMobile) ? 625 : 575, 25, 'speaker')
             .setInteractive();
 
-        if(game.soundPlay == false){
+        if(this.sys.game.soundPlay == false){
             this.speaker.setTint(0xf00000);
-            game.soundTest.pause();
+            this.sys.game.soundTest.pause();
         };
 
         this.speaker.on('pointerdown', () => {
-            if(game.soundPlay == false){
-                game.soundTest.resume();
-                game.soundPlay = true;
+            if(this.sys.game.soundPlay == false){
+                this.sys.game.soundTest.resume();
+                this.sys.game.soundPlay = true;
                 this.speaker.clearTint();
-            } else if(game.soundPlay == true){
-                game.soundTest.pause();
-                game.soundPlay = false;
+            } else if(this.sys.game.soundPlay == true){
+                this.sys.game.soundTest.pause();
+                this.sys.game.soundPlay = false;
                 this.speaker.setTint(0xf00000);
             }
             

@@ -7,15 +7,10 @@ import { intialiseSponges } from "../src/Cells/sponges.js";
 import eventsCenter from "../src/eventsCenter.js";
 import { setGameBackground } from "../src/gameBackground.js";
 
-let game;
 
 export default class MainScene extends Phaser.Scene {
     constructor () {
         super('Main')
-    }
-
-    init (data) {
-        game = data.game;
     }
 
     preload (){
@@ -58,7 +53,7 @@ export default class MainScene extends Phaser.Scene {
         this.movement = "none";
 
         //UI
-        this.scene.run('UI', {game});
+        this.scene.run('UI');
 
         //camera
         const cam = this.cameras.main
@@ -71,7 +66,7 @@ export default class MainScene extends Phaser.Scene {
         
             cam.scrollX -= (p.x - p.prevPosition.x) / cam.zoom;
             cam.scrollY -= (p.y - p.prevPosition.y) / cam.zoom;
-            });
+        });
 
 
         //Setting up world
@@ -109,7 +104,7 @@ export default class MainScene extends Phaser.Scene {
 
         //Buttons at the bottom to create new cells
 
-        cellButtonFunctions(this, game);
+        cellButtonFunctions(this, this.sys.game);
 
         this.data.set('create', "none");
         this.data.set('cellOverlap', false);

@@ -1,5 +1,4 @@
 
-import game from "../game.js";
 
 export default class OrientationScene extends Phaser.Scene {
     constructor () {
@@ -46,13 +45,13 @@ export default class OrientationScene extends Phaser.Scene {
             .setInteractive();
 
         this.speaker.on('pointerdown', () => {
-            if(game.soundPlay == false){
-                game.soundTest.resume();
-                game.soundPlay = true;
+            if(this.sys.game.soundPlay == false){
+                this.sys.game.soundTest.resume();
+                this.sys.game.soundPlay = true;
                 this.speaker.clearTint();
-            } else if(game.soundPlay == true){
-                game.soundTest.pause();
-                game.soundPlay = false;
+            } else if(this.sys.game.soundPlay == true){
+                this.sys.game.soundTest.pause();
+                this.sys.game.soundPlay = false;
                 this.speaker.setTint(0xf00000);
             }
             
@@ -60,7 +59,7 @@ export default class OrientationScene extends Phaser.Scene {
 
         this.input.on('pointerdown', () => {
             this.scale.startFullscreen();
-            this.scene.start('Instruct', {game});
+            this.scene.start('Instruct');
         })
     }
 

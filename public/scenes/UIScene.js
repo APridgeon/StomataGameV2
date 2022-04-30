@@ -1,15 +1,10 @@
 import eventsCenter from "./../src/eventsCenter.js";
 
-let game;
-
 export default class UIScene extends Phaser.Scene {
     constructor () {
         super('UI')
     }
-    
-    init(data) {
-        game = data.game;
-    }
+
 
     preload () {
     }
@@ -48,19 +43,19 @@ export default class UIScene extends Phaser.Scene {
         this.speaker = this.add.image(625, 25, 'speaker')
             .setInteractive();
 
-        if(game.soundPlay == false){
+        if(this.sys.game.soundPlay == false){
             this.speaker.setTint(0xf00000);
-            game.soundTest.pause();
+            this.sys.game.soundTest.pause();
         };
 
         this.speaker.on('pointerdown', () => {
-            if(game.soundPlay == false){
-                game.soundTest.resume();
-                game.soundPlay = true;
+            if(this.sys.game.soundPlay == false){
+                this.sys.game.soundTest.resume();
+                this.sys.game.soundPlay = true;
                 this.speaker.clearTint();
-            } else if(game.soundPlay == true){
-                game.soundTest.pause();
-                game.soundPlay = false;
+            } else if(this.sys.game.soundPlay == true){
+                this.sys.game.soundTest.pause();
+                this.sys.game.soundPlay = false;
                 this.speaker.setTint(0xf00000);
             }
             
@@ -324,7 +319,6 @@ export default class UIScene extends Phaser.Scene {
             } else {
                 eventsCenter.emit('endScene', );
                 this.scene.start('Points', {
-                    game,
                     waterLost: this.data.get('waterLost'),
                     carbonGain: this.data.get('carbonGain')
                 })
