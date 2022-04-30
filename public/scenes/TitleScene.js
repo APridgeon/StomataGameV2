@@ -1,5 +1,4 @@
-
-var isMobile = true// (window.innerWidth < 500 || window.innerHeight < 500) ? true : false;
+import { generateBackground, generateSpeakerButton } from "../src/commonComponents.js";
 
 export default class TitleScene extends Phaser.Scene {
     constructor () {
@@ -33,18 +32,7 @@ export default class TitleScene extends Phaser.Scene {
         mainScene.data.reset();
         uiScene.data.reset();
 
-        this.background = this.add.graphics()
-            .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
-            .fillRect(-1500/2, -1500/2, 1500, 1500)
-
-        this.tweens.add({
-            targets: this.background,
-            angle:360,
-            ease:'linear',
-            loop:-1,
-            duration: 5000
-        })
-
+        generateBackground(this, 0x537c44, 0xf8f644);
 
         let title = this.add.bitmapText(30, 40,'casualTitle', "What's Stomata?",40)
             .setLetterSpacing(10);
@@ -61,37 +49,24 @@ export default class TitleScene extends Phaser.Scene {
             loop: -1
         })
 
-
         this.add.image(100, 270,'tree')
         this.add.image(550, 270,'tree')
         this.add.image(325, 220,'leaf').setScale(1.5)
 
-
+        //setting up sound
         this.sys.game.soundTest = this.sys.game.sound.add('music');
         this.sys.game.soundTest.play({
             loop: true
         });
-
         this.sys.game.soundPlay = true;
 
         this.speaker = this.add.image(625, 25, 'speaker')
             .setInteractive();
 
-        this.speaker.on('pointerdown', () => {
-            if(this.sys.game.soundPlay == false){
-                this.sys.game.soundTest.resume();
-                this.sys.game.soundPlay = true;
-                this.speaker.clearTint();
-            } else if(this.sys.game.soundPlay == true){
-                this.sys.game.soundTest.pause();
-                this.sys.game.soundPlay = false;
-                this.speaker.setTint(0xf00000);
-            }
-            
-        })
-
+        generateSpeakerButton(this);
 
         this.input.on('pointerdown', () => {
+            this.scene.stop('Title');
             this.scene.start('Orientation');
         })
     }

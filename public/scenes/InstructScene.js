@@ -1,4 +1,5 @@
 import { initialiseStomata, makeStomata } from "../src/Cells/stomata.js";
+import { generateBackground, generateSpeakerButton } from "../src/commonComponents.js";
 
 
 export default class InstructScene extends Phaser.Scene {
@@ -13,18 +14,7 @@ export default class InstructScene extends Phaser.Scene {
 
         this.cameras.main.fadeIn(1000, 0,0,0);
 
-        this.background = this.add.graphics()
-            .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
-            .fillRect(-1500/2, -1500/2, 1500, 1500)
-            .setDepth(-2);
-
-        this.tweens.add({
-            targets: this.background,
-            angle:360,
-            ease:'linear',
-            loop:-1,
-            duration: 5000
-        })
+        generateBackground(this, 0x537c44, 0xf8f644);
 
         this.skipText = this.add.bitmapText(20, 300, 'casualTitle', 'SKIP?', 28)
             .setOrigin(0,0)
@@ -484,6 +474,7 @@ export default class InstructScene extends Phaser.Scene {
                 onComplete: () => {
                     this.cameras.main.fadeOut(1000, 0,0,0);
                     this.cameras.main.once('camerafadeoutcomplete', () => { 
+                        this.scene.stop('Instruct');
                         this.scene.start('Main');
                     })
                 }
@@ -492,26 +483,7 @@ export default class InstructScene extends Phaser.Scene {
         })
 
         //Sound
-        this.speaker = this.add.image(625, 25, 'speaker')
-            .setInteractive();
-
-        if(this.sys.game.soundPlay == false){
-            this.speaker.setTint(0xf00000);
-            this.sys.game.soundTest.pause();
-        };
-
-        this.speaker.on('pointerdown', () => {
-            if(this.sys.game.soundPlay == false){
-                this.sys.game.soundTest.resume();
-                this.sys.game.soundPlay = true;
-                this.speaker.clearTint();
-            } else if(game.soundPlay == true){
-                this.sys.game.soundTest.pause();
-                this.sys.game.soundPlay = false;
-                this.speaker.setTint(0xf00000);
-            }
-            
-        })
+        generateSpeakerButton(this);
 
     }
 

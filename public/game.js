@@ -41,4 +41,4 @@ var game = new Phaser.Game(config);
 game.canvas.id = "game";
 
 
-export {game, config};
+export {config};
