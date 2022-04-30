@@ -4,6 +4,7 @@ import InstructScene from "./scenes/InstructScene.js";
 import PointsScene from "./scenes/PointsScene.js";
 import OrientationScene from "./scenes/OrientationScene.js";
 import UIScene from "./scenes/UIScene.js";
+import LeaderBoardScene from "./scenes/LeaderBoard.js";
 
 
 var gameWidth = 650;
@@ -31,7 +32,7 @@ var config = {
             debug: false
         }
     },
-    scene: [TitleScene, OrientationScene, InstructScene, MainScene, UIScene, PointsScene],
+    scene: [TitleScene, OrientationScene, InstructScene, MainScene, UIScene, PointsScene, LeaderBoardScene],
 };
 
 var game = new Phaser.Game(config);

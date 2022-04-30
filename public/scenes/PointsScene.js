@@ -1,45 +1,10 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
-import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
-
-
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAojsdPJiHhyYDpO7ikD0zdPxpGmq99qAY",
-    authDomain: "youarealeaf-56830.firebaseapp.com",
-    databaseURL: "https://youarealeaf-56830-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "youarealeaf-56830",
-    storageBucket: "youarealeaf-56830.appspot.com",
-    messagingSenderId: "279688498101",
-    appId: "1:279688498101:web:e2ea4c02d0f5c133e0e7fc",
-    measurementId: "G-SEBT3591D8"
-  };
-  
-
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+import {app, auth, provider, signInWithPopup, writeUserData} from "./../src/firebaseInit.js";
 
 
 var isMobile = (window.innerWidth < 500 || window.innerHeight < 500) ? true : false;
 let game;
 let waterLost;
 let carbonGain;
-
-
-
-function writeUserData(waterLost, carbonGain, name) {
-    const db = getDatabase();
-    push(ref(db, 'Leaderboard/'), {
-      waterloss: waterLost,
-      carbonGain: carbonGain,
-      WUE: (carbonGain/waterLost).toFixed(3),
-      userName: name
-    });
-  }
-
-
 
 
 export default class PointsScene extends Phaser.Scene {
@@ -224,7 +189,7 @@ export default class PointsScene extends Phaser.Scene {
                             console.log(name)
                             writeUserData(122, 344, name);
                             game.soundTest.stop();
-                            this.scene.start('Title');
+                            this.scene.start('LeaderBoard');
                         });
                 } else {
                     this.cameras.main.shake(500, 0.01);
