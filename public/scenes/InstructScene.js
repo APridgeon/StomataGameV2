@@ -40,7 +40,7 @@ export default class InstructScene extends Phaser.Scene {
                 this.skipText.clearTint()
             })
             .on('pointerdown', () => {
-                this.scene.start('LeaderBoard', {game});
+                this.scene.start('Main');
             });
         
         this.leaf = this.add.image(325, 220,'leaf')
