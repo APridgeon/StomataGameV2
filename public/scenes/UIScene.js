@@ -1,3 +1,4 @@
+import { generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
 import eventsCenter from "./../src/eventsCenter.js";
 
 export default class UIScene extends Phaser.Scene {
@@ -40,44 +41,8 @@ export default class UIScene extends Phaser.Scene {
         })
 
         //music speakers
-        this.speaker = this.add.image(625, 25, 'speaker')
-            .setInteractive();
-
-        if(this.sys.game.soundPlay == false){
-            this.speaker.setTint(0xf00000);
-            this.sys.game.soundTest.pause();
-        };
-
-        this.speaker.on('pointerdown', () => {
-            if(this.sys.game.soundPlay == false){
-                this.sys.game.soundTest.resume();
-                this.sys.game.soundPlay = true;
-                this.speaker.clearTint();
-            } else if(this.sys.game.soundPlay == true){
-                this.sys.game.soundTest.pause();
-                this.sys.game.soundPlay = false;
-                this.speaker.setTint(0xf00000);
-            }
-            
-        })
-
-        //fullscreen
-        this.fullscreen = this.add.image(425, 25, 'screen')
-            .setInteractive()
-            .on("pointerup", () => {
-                if(this.scale.isFullscreen){
-                    this.scale.stopFullscreen();
-                } else{
-                    this.scale.startFullscreen();
-                }
-            })
-            .on("pointerover", () => {
-                this.fullscreen.setTint(0xf00000);
-            })
-            .on("pointerout", () => {
-                this.fullscreen.clearTint();
-            })
-
+        generateSpeakerButton(this);
+        generateFullScreenButton(this);
 
         //Water and CO2 states
         this.waterLevelText = this.add.bitmapText(5, 5,'casual',  'Current water level: 0', this.fontSize)
@@ -86,7 +51,7 @@ export default class UIScene extends Phaser.Scene {
             .setTint(0x000000);
         this.carbonText = this.add.bitmapText(5, 39,'casual', 'Total carbon gain: 0', this.fontSize)
             .setTint(0x000000);
-        this.pointsText = this.add.bitmapText(500, 15,'casual', 'Points: ' + this.startingPoints, this.fontSize)
+        this.pointsText = this.add.bitmapText(450, 15,'casual', 'Points: ' + this.startingPoints, this.fontSize)
             .setTint(0x000000);
 
 
@@ -317,7 +282,8 @@ export default class UIScene extends Phaser.Scene {
         function gameOver(){
             if(!this.reachedWaterLevel){
             } else {
-                eventsCenter.emit('endScene', );
+                eventsCenter.emit('endScene');
+                this.scene.stop('UI');
                 this.scene.start('Points', {
                     waterLost: this.data.get('waterLost'),
                     carbonGain: this.data.get('carbonGain')

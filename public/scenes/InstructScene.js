@@ -1,5 +1,5 @@
 import { initialiseStomata, makeStomata } from "../src/Cells/stomata.js";
-import { generateBackground, generateSpeakerButton } from "../src/commonComponents.js";
+import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
 
 
 export default class InstructScene extends Phaser.Scene {
@@ -30,6 +30,7 @@ export default class InstructScene extends Phaser.Scene {
                 this.skipText.clearTint()
             })
             .on('pointerdown', () => {
+                this.scene.stop('Instruct');
                 this.scene.start('Main');
             });
         
@@ -482,8 +483,9 @@ export default class InstructScene extends Phaser.Scene {
 
         })
 
-        //Sound
+        
         generateSpeakerButton(this);
+        generateFullScreenButton(this);
 
     }
 

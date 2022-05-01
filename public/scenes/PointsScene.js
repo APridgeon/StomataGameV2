@@ -1,3 +1,4 @@
+import { generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
 import {app, auth, provider, signInWithPopup, writeUserData} from "./../src/firebaseInit.js";
 
 
@@ -184,7 +185,8 @@ export default class PointsScene extends Phaser.Scene {
                 if(name){
                     signInWithPopup(auth, provider)
                         .then(result => {
-                            writeUserData(waterLost, carbonGain, name);
+                            writeUserData('??', '??', name);
+                            //writeUserData(waterLost, carbonGain, name);
                             this.scene.start('LeaderBoard');
                         });
                 } else {
@@ -204,27 +206,9 @@ export default class PointsScene extends Phaser.Scene {
         
         //http://phaser.io/examples/v3/view/input/keyboard/retro-leaderboard
 
-        //Sound
-        this.speaker = this.add.image((isMobile) ? 625 : 575, 25, 'speaker')
-            .setInteractive();
-
-        if(this.sys.game.soundPlay == false){
-            this.speaker.setTint(0xf00000);
-            this.sys.game.soundTest.pause();
-        };
-
-        this.speaker.on('pointerdown', () => {
-            if(this.sys.game.soundPlay == false){
-                this.sys.game.soundTest.resume();
-                this.sys.game.soundPlay = true;
-                this.speaker.clearTint();
-            } else if(this.sys.game.soundPlay == true){
-                this.sys.game.soundTest.pause();
-                this.sys.game.soundPlay = false;
-                this.speaker.setTint(0xf00000);
-            }
-            
-        })
+        //sound and fullscreen
+        generateSpeakerButton(this);
+        generateFullScreenButton(this);
 
     }
 

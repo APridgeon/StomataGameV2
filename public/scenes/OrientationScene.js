@@ -1,4 +1,4 @@
-import { generateBackground, generateSpeakerButton } from "../src/commonComponents.js"
+import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js"
 
 export default class OrientationScene extends Phaser.Scene {
     constructor () {
@@ -17,6 +17,7 @@ export default class OrientationScene extends Phaser.Scene {
         }
 
         generateSpeakerButton(this);
+        generateFullScreenButton(this);
 
         this.orientationText = this.add.bitmapText(100, 80,'casualTitle', (this.scale.orientation === Phaser.Scale.PORTRAIT) ? 'This works\nbest\nin landscape!' : 'Click \nto continue!',40, 1)
             .setLetterSpacing(10);

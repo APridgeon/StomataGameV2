@@ -1,12 +1,12 @@
 import eventsCenter from "../eventsCenter.js";
 
 
-export function initialiseStomata(t)
+export function initialiseStomata(scene)
 {
-    t.stomataPores = t.physics.add.group();
-    t.guardCellsL = t.physics.add.group();
-    t.guardCellsR = t.physics.add.group();
-    t.stomataBoundingBoxes = t.physics.add.group();
+    scene.stomataPores = scene.physics.add.group();
+    scene.guardCellsL = scene.physics.add.group();
+    scene.guardCellsR = scene.physics.add.group();
+    scene.stomataBoundingBoxes = scene.physics.add.group();
 
 }
 
@@ -42,19 +42,24 @@ export function makeStomata(X, Y, t)
             t.data.set('cellOverlap', false);
         });;
 
+
     //boundingBox
-    let boundingBox = t.add.zone(X,Y, 200, 200)
+    let boundingBox = t.add.circle(X,Y, 100)
         .setDepth(-1)
         .setVisible(true)
         .setScale(scale)
-        .setInteractive()
+    console.log(boundingBox);
+    t.physics.world.enable(boundingBox);
+    boundingBox.body
+        .setCircle(100)
+    boundingBox
+        .setInteractive(new Phaser.Geom.Circle(100, 100, 100), Phaser.Geom.Circle.Contains)
         .on('pointerover', () => {
             t.data.set('cellOverlap', true);
         })
         .on('pointerout', () => {
             t.data.set('cellOverlap', false);
         });
-    t.physics.world.enable(boundingBox);
     t.stomataBoundingBoxes.add(boundingBox);
 
 

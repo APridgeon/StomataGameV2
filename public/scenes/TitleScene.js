@@ -1,4 +1,4 @@
-import { generateBackground, generateSpeakerButton } from "../src/commonComponents.js";
+import { generateBackground, generateSpeakerButton, generateFullScreenButton} from "../src/commonComponents.js";
 
 export default class TitleScene extends Phaser.Scene {
     constructor () {
@@ -34,7 +34,7 @@ export default class TitleScene extends Phaser.Scene {
 
         generateBackground(this, 0x537c44, 0xf8f644);
 
-        let title = this.add.bitmapText(30, 40,'casualTitle', "What's Stomata?",40)
+        let title = this.add.bitmapText(30, 50,'casualTitle', "What's Stomata?",40)
             .setLetterSpacing(10);
 
         let subtitle = this.add.bitmapText(120, 110,'casual', 'Click to begin',18)
@@ -60,10 +60,8 @@ export default class TitleScene extends Phaser.Scene {
         });
         this.sys.game.soundPlay = true;
 
-        this.speaker = this.add.image(625, 25, 'speaker')
-            .setInteractive();
-
         generateSpeakerButton(this);
+        generateFullScreenButton(this);
 
         this.input.on('pointerdown', () => {
             this.scene.stop('Title');
