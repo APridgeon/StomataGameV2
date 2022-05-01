@@ -1,10 +1,11 @@
 import { CO2palisade } from "./palisade.js";
 
-export function intialiseSponges(t)
+export function intialiseSponges(scene)
 {
-    t.sponges = t.physics.add.group();
-    t.spongeTweens = [];
-    t.spongeDelays = [];
+    scene.sponges = scene.physics.add.group();
+    scene.spongeTweens = [];
+    scene.spongeDelays = [];
+    scene.spongeStomataBoundingBoxes = scene.physics.add.group();
 }
 
 export function makeSponge(X, Y, t)
@@ -32,18 +33,23 @@ export function makeSponge(X, Y, t)
         });
 
     //boundingBox
-    let boundingBox = t.add.zone(X,Y, 200, 200)
+    let boundingBox = t.add.circle(X,Y, 100)
         .setDepth(-2)
         .setVisible(true)
         .setScale(0.6)
-        .setInteractive()
+    t.physics.world.enable(boundingBox);
+    boundingBox.body
+        .setCircle(100)
+        .debugBodyColor = 0xff0000;
+    boundingBox
+        .setInteractive(new Phaser.Geom.Circle(100, 100, 100), Phaser.Geom.Circle.Contains)
         .on('pointerover', () => {
             t.data.set('stomataOverlap', true);
         })
         .on('pointerout', () => {
             t.data.set('stomataOverlap', false);
         });
-    t.physics.world.enable(boundingBox);
+    t.spongeStomataBoundingBoxes.add(boundingBox);
     
     sponge.setDataEnabled();
     sponge.data.set('active',true);

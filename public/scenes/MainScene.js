@@ -122,6 +122,25 @@ export default class MainScene extends Phaser.Scene {
             this.data.set('create', 'sponge');
         })
 
+        this.events.on('changedata-create', () => {
+            if(this.data.values.create !== "none"){
+                this.stomataBoundingBoxes.children.each(child => {
+                    child.setFillStyle(0xff0000, 0.3)
+                })
+                if(this.data.values.create === "stomata"){
+                    this.spongeStomataBoundingBoxes.children.each(child => {
+                        child.setFillStyle(0xff0000, 0.3)
+                    })
+                }
+            } else {
+                this.stomataBoundingBoxes.children.each(child => {
+                    child.setFillStyle(0xff0000, 0)
+                })
+                this.spongeStomataBoundingBoxes.children.each(child => {
+                    child.setFillStyle(0xff0000, 0)
+                })
+            }
+        })
 
         //stomatal movements
         eventsCenter.on('stomatal-movement', (value) => {

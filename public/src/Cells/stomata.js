@@ -10,75 +10,74 @@ export function initialiseStomata(scene)
 
 }
 
-export function makeStomata(X, Y, t)
+export function makeStomata(X, Y, scene)
 {
     let scale = 0.6;
 
-    let stomaPore = t.stomataPores.create(X, Y,'pore')
+    let stomaPore = scene.stomataPores.create(X, Y,'pore')
         .setScale(scale)
-        .setBodySize((2* t.data.get('aperture')),50,true)
+        .setBodySize((2* scene.data.get('aperture')),50,true)
         .setInteractive();
-    let guardCellL = t.guardCellsL.create(X - ((t.data.get('aperture') + 10) * scale), Y, 'guardcell')
+    let guardCellL = scene.guardCellsL.create(X - ((scene.data.get('aperture') + 10) * scale), Y, 'guardcell')
         .setScale(scale)
         .setBodySize(15,50,true)
         .setImmovable(true)
         .setInteractive()
         .on('pointerover', () => {
-            t.data.set('cellOverlap', true);
+            scene.data.set('cellOverlap', true);
         })
         .on('pointerout', () => {
-            t.data.set('cellOverlap', false);
+            scene.data.set('cellOverlap', false);
         });;
-    let guardCellR = t.guardCellsR.create(X + ((t.data.get('aperture') + 10) * scale), Y, 'guardcell')
+    let guardCellR = scene.guardCellsR.create(X + ((scene.data.get('aperture') + 10) * scale), Y, 'guardcell')
         .toggleFlipY()
         .setScale(scale)
         .setBodySize(15,50,true)
         .setImmovable(true)
         .setInteractive()
         .on('pointerover', () => {
-            t.data.set('cellOverlap', true);
+            scene.data.set('cellOverlap', true);
         })
         .on('pointerout', () => {
-            t.data.set('cellOverlap', false);
+            scene.data.set('cellOverlap', false);
         });;
 
 
     //boundingBox
-    let boundingBox = t.add.circle(X,Y, 100)
+    let boundingBox = scene.add.circle(X,Y, 100)
         .setDepth(-1)
         .setVisible(true)
         .setScale(scale)
-    console.log(boundingBox);
-    t.physics.world.enable(boundingBox);
+    scene.physics.world.enable(boundingBox);
     boundingBox.body
         .setCircle(100)
     boundingBox
         .setInteractive(new Phaser.Geom.Circle(100, 100, 100), Phaser.Geom.Circle.Contains)
         .on('pointerover', () => {
-            t.data.set('cellOverlap', true);
+            scene.data.set('cellOverlap', true);
         })
         .on('pointerout', () => {
-            t.data.set('cellOverlap', false);
+            scene.data.set('cellOverlap', false);
         });
-    t.stomataBoundingBoxes.add(boundingBox);
+    scene.stomataBoundingBoxes.add(boundingBox);
 
 
-    let newStomata = t.stomataPores.getChildren().length - 1;
-    t.H2Ogroup.getChildren().forEach(child => {
-        t.physics.add.collider(child, t.guardCellsL.getChildren()[newStomata]);
-        t.physics.add.collider(child, t.guardCellsR.getChildren()[newStomata]);
-        t.physics.add.overlap(child, t.stomataPores.getChildren()[newStomata], stomaOverlap, null, t);
-        t.physics.add.overlap(child, t.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, t);
+    let newStomata = scene.stomataPores.getChildren().length - 1;
+    scene.H2Ogroup.getChildren().forEach(child => {
+        scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
+        scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
+        scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
+        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, scene);
     })
-    t.CO2group.getChildren().forEach(child => {
-        t.physics.add.collider(child, t.guardCellsL.getChildren()[newStomata]);
-        t.physics.add.collider(child, t.guardCellsR.getChildren()[newStomata]);
-        t.physics.add.overlap(child, t.stomataPores.getChildren()[newStomata], stomaOverlap, null, t);
-        t.physics.add.overlap(child, t.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, t);
+    scene.CO2group.getChildren().forEach(child => {
+        scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
+        scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
+        scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
+        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, scene);
     })
 
     //deleting cells
-    deleteCells(stomaPore, guardCellL, guardCellR, boundingBox, t);
+    deleteCells(stomaPore, guardCellL, guardCellR, boundingBox, scene);
 }
 
 

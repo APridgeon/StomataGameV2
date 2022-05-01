@@ -29,7 +29,7 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0},
-            debug: true
+            debug: false
         }
     },
     scene: [TitleScene, OrientationScene, InstructScene, MainScene, UIScene, PointsScene, LeaderBoardScene],
