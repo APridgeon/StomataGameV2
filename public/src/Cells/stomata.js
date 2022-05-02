@@ -67,13 +67,13 @@ export function makeStomata(X, Y, scene)
         scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
         scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
         scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
-        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, scene);
+       // scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, scene);
     })
     scene.CO2group.getChildren().forEach(child => {
         scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
         scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
         scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
-        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, scene);
+        //scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, scene);
     })
 
     //deleting cells

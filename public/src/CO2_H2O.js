@@ -16,18 +16,18 @@ export function initialiseMolecules(t)
 export function moleculeTimedEvents(t)
 {
     t.timedEvent = t.time.addEvent({
-        delay:100 * t.gameSpeed,
+        delay:50 * t.gameSpeed,
         callback: newCO2event,
         callbackScope: t,
         loop: true
     });
 
-    t.timedEvent2 = t.time.addEvent({
-        delay:1000 * t.gameSpeed,
-        callback: newH2Oevent,
-        callbackScope: t,
-        loop: true
-    })
+    // t.timedEvent2 = t.time.addEvent({
+    //     delay:1000 * t.gameSpeed,
+    //     callback: newH2Oevent,
+    //     callbackScope: t,
+    //     loop: true
+    // })
 }
     
 
@@ -50,6 +50,10 @@ function createCO2atom(t)
         t.physics.add.collider(child, atom);
     })
 
+    t.leafborders.getChildren().forEach(child => {
+        t.physics.add.collider(child, atom);
+    });
+
     atom.body.onWorldBounds = true;
 
 }
@@ -66,6 +70,10 @@ function createH2Oatom(t)
 
     //Adding interactions
     t.epidermis.getChildren().forEach(child => {
+        t.physics.add.collider(child, atom);
+    });
+
+    t.leafborders.getChildren().forEach(child => {
         t.physics.add.collider(child, atom);
     });
 
