@@ -185,8 +185,8 @@ export default class PointsScene extends Phaser.Scene {
                 if(name){
                     signInWithPopup(auth, provider)
                         .then(result => {
-                            writeUserData('??', '??', name);
-                            //writeUserData(waterLost, carbonGain, name);
+                            //writeUserData('??', '??', name);
+                            writeUserData(waterLost, carbonGain, name);
                             this.scene.start('LeaderBoard');
                         });
                 } else {

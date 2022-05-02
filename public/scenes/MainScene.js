@@ -1,6 +1,7 @@
 import { initialiseEpidermis } from "../src/epidermis.js";
 import { initialiseMolecules, moleculeTimedEvents } from "../src/CO2_H2O.js";
 import { initialiseStomata, makeStomata, stomatalMovement } from "../src/Cells/stomata.js";
+import { initialiseVeins, makeVein} from "../src/Cells/vein.js";
 import { cellButtonFunctions } from "../src/cellButtons.js";
 import { initialisePalisades, makePalisade } from "../src/Cells/palisade.js";
 import { intialiseSponges } from "../src/Cells/sponges.js";
@@ -74,10 +75,14 @@ export default class MainScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', (item1) => destroyOutOfBounds(item1, this));
 
         //Game background
-        this.gameBackground = this.add.rectangle(0, 0, this.worldWidth, this.worldHeight).setOrigin(0,0);
+        this.gameBackground = this.add.rectangle(0, 0, this.worldWidth, this.worldHeight)
+            .setOrigin(0,0)
+            .setDepth(-2);
 
         //Leaf background
-        this.add.rectangle(0, this.epidermisY1 + 5, this.worldWidth, this.thickness, 0xa0b335, 0.6).setOrigin(0,0);
+        this.add.rectangle(0, this.epidermisY1 + 5, this.worldWidth, this.thickness, 0xa0b335, 0.6)
+            .setOrigin(0,0)
+            .setDepth(-1);
 
         initialiseEpidermis(this);
 
@@ -96,11 +101,16 @@ export default class MainScene extends Phaser.Scene {
         //Make the guard cells and palisade cells
 
         this.data.set('aperture', 15);
+
+        initialiseVeins(this);
         initialiseStomata(this);
         initialisePalisades(this);
         intialiseSponges(this);
+
         makePalisade((this.worldWidth * 0.6), (this.worldHeight * 0.25) + 50, this);
         makeStomata((this.worldWidth * 0.3) , this.epidermisY1 + 10, this);
+        makeVein(this.worldWidth * 0.5, 250, this);
+
 
         //Buttons at the bottom to create new cells
 

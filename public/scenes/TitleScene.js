@@ -24,6 +24,7 @@ export default class TitleScene extends Phaser.Scene {
         this.load.image('screen','./assets/screen.png');
         this.load.image('star', './assets/star.png');
         this.load.image('arrow', './assets/arrow.png');
+        this.load.image('vein', './assets/vein.png');
     }
 
     create () {
