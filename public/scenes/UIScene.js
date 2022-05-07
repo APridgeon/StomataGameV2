@@ -1,5 +1,6 @@
 import { generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
-import eventsCenter from "./../src/eventsCenter.js";
+import {eventsCenter} from "./../src/eventsCenter.js";
+import { uid } from "../src/firebaseInit.js";
 
 export default class UIScene extends Phaser.Scene {
     constructor () {
@@ -16,7 +17,7 @@ export default class UIScene extends Phaser.Scene {
         this.add.rectangle(0, 280, 650, 350, 0xffffff, 0.5).setOrigin(0,0);
 
         //parameters
-        this.fontSize = 10;
+        this.fontSize = 11.2;
         this.startingPoints = 80;
 
         //points system
@@ -46,13 +47,17 @@ export default class UIScene extends Phaser.Scene {
 
         //Water and CO2 states
         this.waterLevelText = this.add.bitmapText(5, 5,'casual',  'Current water level: 0', this.fontSize)
-            .setTint(0x000000);
+            .setTint(0x000000)
+            .setLetterSpacing(1.12);
         this.waterText = this.add.bitmapText(5, 22,'casual', 'Total water lost: 0', this.fontSize)
-            .setTint(0x000000);
+            .setTint(0x000000)
+            .setLetterSpacing(1.12);
         this.carbonText = this.add.bitmapText(5, 39,'casual', 'Total carbon gain: 0', this.fontSize)
-            .setTint(0x000000);
+            .setTint(0x000000)
+            .setLetterSpacing(1.12);
         this.pointsText = this.add.bitmapText(450, 15,'casual', 'Points: ' + this.startingPoints, this.fontSize)
-            .setTint(0x000000);
+            .setTint(0x000000)
+            .setLetterSpacing(1.12);
 
 
         //stat events listening for text
@@ -284,10 +289,15 @@ export default class UIScene extends Phaser.Scene {
             } else {
                 eventsCenter.emit('endScene');
                 this.scene.stop('UI');
-                this.scene.start('Points', {
-                    waterLost: this.data.get('waterLost'),
-                    carbonGain: this.data.get('carbonGain')
-                })
+                if(uid){
+                    this.scene.start('Points', {
+                        waterLost: this.data.get('waterLost'),
+                        carbonGain: this.data.get('carbonGain')
+                    })
+                } else {
+                    this.scene.start('LeaderBoard');
+                }
+                
             }
     
             this.gameOverTime.paused = true;

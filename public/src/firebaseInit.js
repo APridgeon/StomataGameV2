@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
 import { getDatabase, ref, child, get, push } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
+import {getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js';
 
 
 
@@ -20,11 +20,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
 const dbRef = ref(getDatabase());
+let uid;
 
 
-export {app, auth, provider, signInWithPopup, get, dbRef, child};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    uid = user;
+  } else {
+    uid = null;
+  }
+});
+
+
+
+export {app, auth, provider, signInWithPopup, get, dbRef, child, uid, onAuthStateChanged};
 
 export function writeUserData(waterLost, carbonGain, name) {
     const db = getDatabase();

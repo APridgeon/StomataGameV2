@@ -1,16 +1,16 @@
 //Generating rotating shaded background
-function generateBackground (scene, colour1, colour2) {
-    scene.background = scene.add.graphics()
+function generateBackground (scene, colour1, colour2, width, height) {
+    scene.background = scene.add.graphics({x: width/2, y: height/2})
         .fillGradientStyle(colour1, colour1, colour2, colour2, 0.7)
-        .fillRect(-1500/2, -1500/2, 1500, 1500)
+        .fillRect(-(width*1.5)/2, -(width*1.5)/2, width*1.5, width*1.5)
         .setDepth(-2);
 
-    scene.tweens.add({
+    scene.backgroundTween = scene.tweens.add({
         targets: scene.background,
         angle:360,
         ease:'linear',
         loop:-1,
-        duration: 5000
+        duration: 3000
     });
 };
 

@@ -1,6 +1,7 @@
 import { initialiseStomata, makeStomata } from "../src/Cells/stomata.js";
 import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
-
+import { config } from "./../game.js";
+import { uid } from "./../src/firebaseInit.js";
 
 export default class InstructScene extends Phaser.Scene {
     constructor () {
@@ -14,7 +15,7 @@ export default class InstructScene extends Phaser.Scene {
 
         this.cameras.main.fadeIn(1000, 0,0,0);
 
-        generateBackground(this, 0x537c44, 0xf8f644);
+        generateBackground(this, 0x537c44, 0xf8f644, config.scale.width, config.scale.height);
 
         this.skipText = this.add.bitmapText(20, 300, 'casualTitle', 'SKIP?', 28)
             .setOrigin(0,0)
@@ -179,6 +180,7 @@ export default class InstructScene extends Phaser.Scene {
         this.close = this.add.bitmapText(565, 330,'casual', 'Close', 10)
             .setTint(0x000000);
         this.downArrow = this.add.image(550, 320, 'arrow')
+            .toggleFlipY()
         this.stomataControls.addMultiple([this.open, this.upArrow, this.close, this.downArrow])
             .setAlpha(0);
 

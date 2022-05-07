@@ -1,4 +1,4 @@
-import eventsCenter from "../eventsCenter.js";
+import {eventsCenter} from "../eventsCenter.js";
 
 
 export function initialiseStomata(scene)
@@ -124,11 +124,9 @@ function stomaOverlap(sprite1)
 {
     if(sprite1.body.velocity.y > 0){
         sprite1.y = sprite1.y + 25;
-        //this.sound.play('leaving')
     }
     if(sprite1.body.velocity.y < 0){
         sprite1.y = sprite1.y - 25;
-        //this.sound.play('entering')
     }
 
 }

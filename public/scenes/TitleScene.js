@@ -1,4 +1,5 @@
 import { generateBackground, generateSpeakerButton, generateFullScreenButton} from "../src/commonComponents.js";
+import { config } from "./../game.js";
 
 export default class TitleScene extends Phaser.Scene {
     constructor () {
@@ -33,13 +34,14 @@ export default class TitleScene extends Phaser.Scene {
         mainScene.data.reset();
         uiScene.data.reset();
 
-        generateBackground(this, 0x537c44, 0xf8f644);
+        generateBackground(this, 0x537c44, 0xf8f644, config.scale.width, config.scale.height);
 
         let title = this.add.bitmapText(30, 50,'casualTitle', "What's Stomata?",40)
             .setLetterSpacing(10);
 
         let subtitle = this.add.bitmapText(120, 110,'casual', 'Click to begin',18)
             .setTint(0x423c56);
+
 
         this.tweens.add({
             targets: title,

@@ -1,10 +1,11 @@
-import eventsCenter from "./../eventsCenter.js";
+import {eventsCenter} from "./../eventsCenter.js";
 
-export function initialisePalisades(t)
+export function initialisePalisades(scene)
 {
-    t.palisades = t.physics.add.group();
-    t.palisadeDelays = [];
-    t.palisadeTweens = [];
+    scene.palisades = scene.physics.add.group();
+    scene.palisadeDelays = [];
+    scene.palisadeTweens = [];
+    scene.palisadeBoundingBoxes = scene.physics.add.group();
 }
 
 export function makePalisade(X, Y, t)
@@ -34,19 +35,24 @@ export function makePalisade(X, Y, t)
         });
 
     //boundingBox
-    let boundingBox = t.add.zone(X,Y, 200, 200)
-        .setDepth(-2)
+    let boundingBox = t.add.circle(X, Y, 100)
+        .setDepth(-1)
         .setVisible(true)
-        .setScale(0.6)
-        .setInteractive()
+        .setScale(0.6);
+
+    t.physics.world.enable(boundingBox);
+    boundingBox.body
+        .setCircle(100)
+        .debugBodyColor = 0xff0000;
+    boundingBox
+        .setInteractive(new Phaser.Geom.Circle(100, 100, 100), Phaser.Geom.Circle.Contains)
         .on('pointerover', () => {
             t.data.set('stomataOverlap', true);
         })
         .on('pointerout', () => {
             t.data.set('stomataOverlap', false);
         });
-    t.physics.world.enable(boundingBox);
-
+    t.palisadeBoundingBoxes.add(boundingBox);
 
     palisade.setDataEnabled();
     palisade.data.set('active',false);

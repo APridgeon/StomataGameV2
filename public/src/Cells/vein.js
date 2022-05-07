@@ -1,4 +1,4 @@
-import eventsCenter from "./../eventsCenter.js";
+import {eventsCenter} from "./../eventsCenter.js";
 
 export function initialiseVeins(scene)
 {
@@ -15,7 +15,7 @@ export function makeVein(X, Y, scene)
 
 
     scene.time.addEvent({
-        delay: 5000 * scene.gameSpeed,
+        delay: 1000 * scene.gameSpeed,
         callback: newVeinH2OEvent,
         callbackScope: scene,
         loop: true
@@ -32,6 +32,8 @@ export function makeVein(X, Y, scene)
         if(inactiveH2O.length >= 2){
             inactiveH2O[0].setVisible(true);
             inactiveH2O[0].setActive(true);
+            inactiveH2O[0].setDepth(1);
+            inactiveH2O[0].lifeSpan.paused = false;
             inactiveH2O[0].x = X;
             inactiveH2O[0].y = Y;
             inactiveH2O[0]
@@ -42,6 +44,8 @@ export function makeVein(X, Y, scene)
             
             inactiveH2O[1].setVisible(true);
             inactiveH2O[1].setActive(true);
+            inactiveH2O[1].setDepth(1);
+            inactiveH2O[1].lifeSpan.paused = false;
             inactiveH2O[1].x = X;
             inactiveH2O[1].y = Y;
             inactiveH2O[1]

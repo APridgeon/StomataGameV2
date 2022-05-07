@@ -2,7 +2,7 @@ import { makePalisade } from "./Cells/palisade.js";
 import { makeStomata } from "./Cells/stomata.js";
 import { makeSponge } from "./Cells/sponges.js";
 
-import eventsCenter from "./eventsCenter.js";
+import {eventsCenter} from "./eventsCenter.js";
 
 
 export function cellButtonFunctions(t, game)

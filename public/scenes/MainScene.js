@@ -5,9 +5,8 @@ import { initialiseVeins, makeVein} from "../src/Cells/vein.js";
 import { cellButtonFunctions } from "../src/cellButtons.js";
 import { initialisePalisades, makePalisade } from "../src/Cells/palisade.js";
 import { intialiseSponges } from "../src/Cells/sponges.js";
-import eventsCenter from "../src/eventsCenter.js";
-import { setGameBackground } from "../src/gameBackground.js";
-
+import {eventsCenter} from "../src/eventsCenter.js";
+import { generateBackground } from "../src/commonComponents.js";
 
 export default class MainScene extends Phaser.Scene {
     constructor () {
@@ -25,9 +24,6 @@ export default class MainScene extends Phaser.Scene {
         this.load.image('screen','./assets/screen.png');
         this.load.image('star', './assets/star.png');
         this.load.image('arrow', './assets/arrow.png');
-        //this.load.audio('entering', './assets/Entering.ogg');
-        //this.load.audio('leaving', './assets/Leaving.ogg');
-        //this.load.audio('photosynthesis','./assets/Photosynthesis.ogg');
         this.load.bitmapFont('casual', './fonts/Unnamed.png', './fonts/Unnamed.xml');
     }
 
@@ -75,9 +71,7 @@ export default class MainScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', (item1) => destroyOutOfBounds(item1, this));
 
         //Game background
-        this.gameBackground = this.add.rectangle(0, 0, this.worldWidth, this.worldHeight)
-            .setOrigin(0,0)
-            .setDepth(-2);
+        generateBackground(this, 0x262156, 0x87d1c7, this.worldWidth, this.worldHeight);
 
         //Leaf background
         this.add.rectangle(0, this.epidermisY1 + 5, this.worldWidth, this.thickness, 0xa0b335, 0.6)
@@ -94,6 +88,7 @@ export default class MainScene extends Phaser.Scene {
         this.time.addEvent({
             delay:1000,
             callback: calculateWaterLevel,
+            args: [this],
             callbackScope: this,
             loop: true
         })
@@ -110,6 +105,7 @@ export default class MainScene extends Phaser.Scene {
         makePalisade((this.worldWidth * 0.6), (this.worldHeight * 0.25) + 50, this);
         makeStomata((this.worldWidth * 0.3) , this.epidermisY1 + 10, this);
         makeVein(this.worldWidth * 0.5, 250, this);
+        //makeVein(this.worldWidth * 0.5 + 100, 250, this);
 
 
         //Buttons at the bottom to create new cells
@@ -141,6 +137,9 @@ export default class MainScene extends Phaser.Scene {
                     this.spongeStomataBoundingBoxes.children.each(child => {
                         child.setFillStyle(0xff0000, 0.3)
                     })
+                    this.palisadeBoundingBoxes.children.each(child => {
+                        child.setFillStyle(0xff0000, 0.3);
+                    })
                 }
             } else {
                 this.stomataBoundingBoxes.children.each(child => {
@@ -148,6 +147,9 @@ export default class MainScene extends Phaser.Scene {
                 })
                 this.spongeStomataBoundingBoxes.children.each(child => {
                     child.setFillStyle(0xff0000, 0)
+                })
+                this.palisadeBoundingBoxes.children.each(child => {
+                    child.setFillStyle(0xff0000, 0);
                 })
             }
         })
@@ -188,19 +190,18 @@ function destroyOutOfBounds(item1, t)
 }
 
 
-function calculateWaterLevel() 
+export function calculateWaterLevel(scene) 
 {
     let withinLeaf = [];
 
-    this.H2Ogroup.getChildren().forEach(child => {
-        if( child.y < this.epidermisY2 && child.y > this.epidermisY1 && child.active){
+    scene.H2Ogroup.getChildren().forEach(child => {
+        if( child.y < scene.epidermisY2 && child.y > scene.epidermisY1 && child.active){
             withinLeaf.push(child);
         };
     });
 
-    //this.data.values.waterLevel = withinLeaf.length;
     eventsCenter.emit('calculate-waterLevel', withinLeaf.length);
-    setGameBackground(this, withinLeaf.length);
+    //setBackground(this, withinLeaf.length);
 };
 
 

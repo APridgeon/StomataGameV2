@@ -20,13 +20,13 @@ export function makeSponge(X, Y, t)
             t.data.set('cellOverlap', true);
         })
         .on('pointerout', () => {
-            if(sponge.data.values.active === true){
+            if(sponge.data.values.active){
                 sponge.clearTint();
             }
             t.data.set('cellOverlap', false);
         })
         .on('pointerdown', () => {
-            if(sponge.data.values.active == true && t.data.values.create === "none"){
+            if(sponge.data.values.active && t.data.values.create === "none"){
                 sponge.destroy();
                 boundingBox.destroy();
             }
@@ -34,7 +34,7 @@ export function makeSponge(X, Y, t)
 
     //boundingBox
     let boundingBox = t.add.circle(X,Y, 100)
-        .setDepth(-2)
+        .setDepth(-1)
         .setVisible(true)
         .setScale(0.6)
     t.physics.world.enable(boundingBox);
@@ -52,7 +52,7 @@ export function makeSponge(X, Y, t)
     t.spongeStomataBoundingBoxes.add(boundingBox);
     
     sponge.setDataEnabled();
-    sponge.data.set('active',true);
+    sponge.data.set('active', false);
 
     t.H2Ogroup.getChildren().forEach(child => {
         t.physics.add.collider(child, sponge);

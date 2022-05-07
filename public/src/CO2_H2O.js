@@ -1,3 +1,5 @@
+import {calculateWaterLevel} from "./../scenes/MainScene.js"
+
 let bounce = 0.99;
 
 export function initialiseMolecules(t)
@@ -7,10 +9,12 @@ export function initialiseMolecules(t)
         createCO2atom(t);
     }
 
+    t.H2OtimedEvents = [];
     t.H2Ogroup = t.physics.add.group();
     for (let step = 0; step < 50; step++){
         createH2Oatom(t);
     }
+
 }
 
 export function moleculeTimedEvents(t)
@@ -82,6 +86,22 @@ function createH2Oatom(t)
     })
 
     atom.body.onWorldBounds = true;
+
+    //Adding lifespan for H2O atom
+
+    atom.lifeSpan = t.time.addEvent({
+        args: atom,
+        delay: Phaser.Math.Between(5000,15000),
+        paused: true,
+        callback: () => {
+            console.log("GONE");
+            atom.setDepth(-3);
+            atom.setActive(false);
+            atom.lifeSpan.paused = true;
+            calculateWaterLevel(t);
+        }
+    , callbackScope: t, repeat: -1});
+
 }
 
 

@@ -1,6 +1,7 @@
 import {get, dbRef, child} from "./../src/firebaseInit.js";
 import { config } from "./../game.js";
-import { generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
+import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
+import { eventsCenter, resetEvents } from "../src/eventsCenter.js";
 
 export default class LeaderBoardScene extends Phaser.Scene {
     constructor () {
@@ -28,17 +29,18 @@ export default class LeaderBoardScene extends Phaser.Scene {
         })
 
         ///background
-        this.background = this.add.graphics()
-            .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
-            .fillRect(-1500, -1500, 1500*2, 1500*2)
+        generateBackground(this, 0x537c44, 0xf8f644, 1000, 1000);
+        // this.background = this.add.graphics()
+        //     .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
+        //     .fillRect(-1500, -1500, 1500*2, 1500*2)
 
-        this.tweens.add({
-            targets: this.background,
-            angle:360,
-            ease:'linear',
-            loop:-1,
-            duration: 5000
-        })
+        // this.tweens.add({
+        //     targets: this.background,
+        //     angle:360,
+        //     ease:'linear',
+        //     loop:-1,
+        //     duration: 5000
+        // })
 
 
         generateSpeakerButton(this);
@@ -122,19 +124,18 @@ export default class LeaderBoardScene extends Phaser.Scene {
                     this.submitButton.setAlpha(0.4)
                 })
             
-            this.submitText = this.add.bitmapText(570, 160, 'casual', 'Restart', 18)
+            this.submitText = this.add.bitmapText(570, 165, 'casual', 'Restart', 18)
                 .setOrigin(0.5, 0.5)
                 .setInteractive()
                 .on('pointerdown', () => {
                     this.submitText.setTint(0xff0000);
                     this.sys.game.destroy(true);
-                    document.addEventListener('mousedown', function newGame () {
-                        game = new Phaser.Game(config);
-                        document.removeEventListener('mousedown', newGame);
-                    });
-                })
-                .on('pointerup', () => {
-                    this.submitText.clearTint()
+                    resetEvents(eventsCenter);
+                    new Phaser.Game(config);
+                    // document.addEventListener('mousedown', function newGame () {
+                    //     game = new Phaser.Game(config);
+                    //     document.removeEventListener('mousedown', newGame);
+                    // });
                 })
                 .on('pointerover', () => {
                     this.submitButton.setAlpha(0.9)

@@ -1,4 +1,10 @@
 
 const eventsCenter = new Phaser.Events.EventEmitter();
 
-export default eventsCenter;
+function resetEvents(eventsCenter){
+    eventsCenter.destroy();
+    eventsCenter = new Phaser.Events.EventEmitter();
+}
+
+
+export {eventsCenter, resetEvents};
