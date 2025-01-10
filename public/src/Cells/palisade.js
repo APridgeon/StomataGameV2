@@ -3,8 +3,6 @@ import {eventsCenter} from "./../eventsCenter.js";
 export function initialisePalisades(scene)
 {
     scene.palisades = scene.physics.add.group();
-    scene.palisadeDelays = [];
-    scene.palisadeTweens = [];
     scene.palisadeBoundingBoxes = scene.physics.add.group();
 }
 
@@ -66,16 +64,15 @@ export function makePalisade(X, Y, t)
     })
 
     //this adds the palisade animation + delay
-    let palisadeDelay = t.time.addEvent({delay: 5000, 
+    palisade.Delay = t.time.addEvent({delay: 5000, 
         callback: function() {
             palisade.clearTint();
             palisade.data.set('active', true);
-            palisadeDelay.paused = true;
+            palisade.Delay.paused = true;
         }, callbackScope: t, repeat: -1})
 
-    t.palisadeDelays.push(palisadeDelay);
             
-    t.palisadeTweens.push( t.add.tween({
+    palisade.Tweens = t.add.tween({
         targets: palisade,
         scaleX: 0.7,
         scaleY: 0.7,
@@ -87,9 +84,9 @@ export function makePalisade(X, Y, t)
             palisade.clearTint();
             palisade.setTint(0xf00000);
             palisade.data.set('active', false);
-            palisadeDelay.paused = false;
+            palisade.Delay.paused = false;
         }
-    }));
+    });
 
 
 }
@@ -102,21 +99,9 @@ export function CO2palisade(object1, object2)
         object2.y = -10
         object2.setActive(false);
         object2.setVisible(false);
-        //this.sound.play('photosynthesis')
         eventsCenter.emit('increment-carbonGain',1);
         eventsCenter.emit('increment-points', this.carbonPoints);
-        this.palisadeTweens.forEach(child => {
-            if(object1 === child.targets[0]) {
-                object1.setTint(0xfff000);
-                child.play();
-            };
-        });
-        this.spongeTweens.forEach(child => {
-            if(object1 === child.targets[0]) {
-                object1.setTint(0xfff000);
-                child.play();
-            };
-        });
+        object1.Tweens.play();
 
     }
 };

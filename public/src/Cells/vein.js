@@ -14,7 +14,7 @@ export function makeVein(X, Y, scene)
         .setDepth(-1)
 
 
-    scene.time.addEvent({
+    vein.H2OSpawn = scene.time.addEvent({
         delay: 1000 * scene.gameSpeed,
         callback: newVeinH2OEvent,
         callbackScope: scene,
@@ -30,29 +30,39 @@ export function makeVein(X, Y, scene)
         })
 
         if(inactiveH2O.length >= 2){
-            inactiveH2O[0].setVisible(true);
-            inactiveH2O[0].setActive(true);
-            inactiveH2O[0].setDepth(1);
+
+            let angle = Phaser.Math.Between(0, 360);
+            let velocities = scene.physics.velocityFromAngle(angle, 75*scene.atomSpeed)
+
+            inactiveH2O[0]
+                .setVisible(true)
+                .setActive(true)
+                .setAlpha(1)
+                .setVelocity(velocities.x, velocities.y)
+                .setCollideWorldBounds(true)
+                .setBounce(1);
             inactiveH2O[0].lifeSpan.paused = false;
             inactiveH2O[0].x = X;
             inactiveH2O[0].y = Y;
-            inactiveH2O[0]
-                .setVelocityY(50 * this.atomSpeed)
-                .setVelocityX((Math.random() * (150 * scene.atomSpeed)) - ((150 * scene.atomSpeed)/2))
-                .setBounce(1)
-                .setCollideWorldBounds(true);
+
+
+            angle = Phaser.Math.Between(-180, 180);
+            velocities = scene.physics.velocityFromAngle(angle, 75*scene.atomSpeed)
+            // console.log(angle, Math.atan2(velocities.y, velocities.x) * (180/Math.PI));
+
             
-            inactiveH2O[1].setVisible(true);
-            inactiveH2O[1].setActive(true);
-            inactiveH2O[1].setDepth(1);
+
+            inactiveH2O[1]
+                .setVisible(true)
+                .setActive(true)
+                .setAlpha(1)
+                .setVelocity(velocities.x, velocities.y)
+                .setCollideWorldBounds(true)
+                .setBounce(1);
             inactiveH2O[1].lifeSpan.paused = false;
             inactiveH2O[1].x = X;
             inactiveH2O[1].y = Y;
-            inactiveH2O[1]
-                .setVelocityY(50 * scene.atomSpeed)
-                .setVelocityX((Math.random() * (150 * scene.atomSpeed)) - ((150 * scene.atomSpeed)/2))
-                .setBounce(1)
-                .setCollideWorldBounds(true);
+
         }
     }
 

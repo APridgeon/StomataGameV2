@@ -67,13 +67,13 @@ export function makeStomata(X, Y, scene)
         scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
         scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
         scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
-       // scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, scene);
+        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractH2O, null, scene);
     })
     scene.CO2group.getChildren().forEach(child => {
         scene.physics.add.collider(child, scene.guardCellsL.getChildren()[newStomata]);
         scene.physics.add.collider(child, scene.guardCellsR.getChildren()[newStomata]);
         scene.physics.add.overlap(child, scene.stomataPores.getChildren()[newStomata], stomaOverlap, null, scene);
-        //scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, scene);
+        scene.physics.add.overlap(child, scene.stomataBoundingBoxes.getChildren()[newStomata], attractCO2, null, scene);
     })
 
     //deleting cells
@@ -133,14 +133,35 @@ function stomaOverlap(sprite1)
 
 function attractH2O(sprite1, sprite2){
 
-    if(sprite1.y > this.epidermisY1 + 50 && sprite1.y < this.epidermisY2 -50){
-        this.physics.accelerateToObject(sprite1, sprite2, 30, 100, 100);
+    if(sprite1.y > this.epidermisY1 + 20 && sprite1.y < this.epidermisY2 -20 && this.data.values.aperture > 10){
+        let velocities = sprite1.body.velocity;
+        let dx = sprite2.x - sprite1.x;
+        let dy = sprite2.y - sprite1.y;
+        let angle1 = Math.atan2(velocities.y, velocities.x);
+        let angle2 = Math.atan2(dy, dx);
+
+        let newAngle = Phaser.Math.Angle.RotateTo(angle1, angle2, 0.05);
+        let newVelocity = this.physics.velocityFromAngle(newAngle * (180/Math.PI), sprite1.body.speed);
+
+        sprite1.setVelocityX(newVelocity.x)
+        sprite1.setVelocityY(newVelocity.y)
     }
 }
+
 function attractCO2(sprite1, sprite2){
 
-    if(sprite1.y < this.epidermisY1 + 50 || sprite1.y > this.epidermisY2 -50){
-        this.physics.accelerateToObject(sprite1, sprite2, 60, 100, 100);
+    if((sprite1.y < this.epidermisY1 + 20 || sprite1.y > this.epidermisY2 -20) && this.data.values.aperture > 10){
+        let velocities = sprite1.body.velocity;
+        let dx = sprite2.x - sprite1.x;
+        let dy = sprite2.y - sprite1.y;
+        let angle1 = Math.atan2(velocities.y, velocities.x);
+        let angle2 = Math.atan2(dy, dx);
+
+        let newAngle = Phaser.Math.Angle.RotateTo(angle1, angle2, 0.05);
+        let newVelocity = this.physics.velocityFromAngle(newAngle * (180/Math.PI), sprite1.body.speed * 0.9999);
+
+        sprite1.setVelocityX(newVelocity.x)
+        sprite1.setVelocityY(newVelocity.y)
     }
 }
 
