@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="_0xHs0g4N04g5dPV5GAJWOSHBYGm_Gg-olCOj7wYIl8" />
+    <meta name="description" content="What's stomata? An online game where you play as a leaf. Try to optimise your carbon uptake and water loss by controlling the aperture of your stomata and the cellular architecture of your leaf. Game made by Ashley Pridgeon, with much advice from colleagues in the life sciences department of Bristol." />
     <style media='screen' type='text/css'>
         @font-face {
           font-family: font1;
@@ -9,19 +11,67 @@
           font-weight:normal;
         }
     </style>
-    <script src="./phaser.min.js"></script>
-    <script src="./game.js" type="module"></script>
-    <title>You Are A Leaf</title>
+    <title>What's Stomata?</title>
 </head>
-<body>
+<body style="text-size-adjust: none;">
     <div class="fontPreload" style="font-family: font1;"></div>
 
 
-    <div class="mainContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw;">
+    <div class="mainContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 90vw;">
        
+        <div style="font-family: font1; font-size: 40px; padding: 30px; line-height: 35px;">What's Stomata?</div>
+        <div id="test" style="max-height: 350px; align-items: center; justify-content: center; width: 90vw;" ></div>
+        <div style="font-family: font1; font-size: 16px; margin: 25px;">You have <span style="color: #ff0000">5</span> mins to be the best leaf!</div>
+        <div style="font-family: font1; font-size: 16px; margin: 10px; width: 70vw; text-align: center; line-height: 35px;">
+            Control the movement of stomata *and* the development of leaf cells to gain 
+            as much <span style="color: #c19c4d">CO2</span> for photosynthesis and lose as little 
+            <span style="color: #596faf">H2O</span> as possible
+        </div>
 
-        <div id="test" style="max-height: 350px;" ></div>
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <img src="./assets/sponge.png" style="width: 64px; height: 58px; padding: 20px;">
+            <img src="./assets/palisade.png" style="width: 65px; height: 105px; padding: 20px;">
+            <div style="font-family: font1; font-size: 16px; text-align: center;line-height: 35px;">
+                These cells are mesophyll cells. They are photosynthetic and will fix <span style="color: #c19c4d">CO2</span>.
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <img src="./assets/stomataPNG.png" style="width: 151.2px; height: 84px; padding: 20px;">
+            <div style="font-family: font1; font-size: 16px; text-align: center;line-height: 35px;">
+                These are stomata and will help you control the movement of <span style="color: #c19c4d">CO2</span> and
+                <span style="color: #596faf">H2O</span>.
+            </div>
+        </div>
+
+        <div style="border-radius: 10px; background: whitesmoke; font-family:font1, Helvetica, sans-serif; font-size: 12px; margin-top: 50px; padding: 20px; width: 70vw; line-height: 30px;">
+            <p style="font-size: 18px;">
+                <u>Further details!</u>
+            </p>
+            <p style="font-size: 12px;">
+                Stomata are microscopic pores found on the surfaces of plants that play a critical role in plant gas exchange.
+                They allow plants to rapidly respond to changes in their environment, optimising carbon uptake and waterloss. 
+                Often plant breeders are trying to increase the <span style="color: darkgreen;">water use efficiency (WUE)</span> of their crops. We can think of <span style="color: darkgreen;">WUE</span>
+                as the amount of water lost for every carbon atom taken up and fixed via photosynthesis (<span style="color: #c19c4d">CO2</span>/<span style="color: #596faf">H2O</span>)
+            </p>
+            <p style="font-size: 12px;">
+                By selectively breeding plants with altered stomatal characteristics (eg decreased numbers of stomata and 
+                faster moving stomata), scientists are trying to alter crop <span style="color: darkgreen;">WUE</span> traits. 
+            </p> 
+            <p style="font-size: 12px;">
+                In this game, you can control leaf development and stomatal
+                movements to achieve the highest <span style="color: darkgreen;">WUE</span> (ie get the most carbon while losing as little water as possible).
+            </p>
+            
+        </div>
     </div>
+
+
+    <div style="font-family: font1; font-size: 12px; margin-left: 20px; margin-top: 70px; margin-bottom: 50px; text-align: left;">
+        Made by <a href="https://bsky.app/profile/ajpridgeon.bsky.social">Ashley Pridgeon</a>
+    </div>
+    
+    <script src="./phaser.min.js"></script>
+    <script src="./game.js" type="module"></script>
 
 </body>
 </html>

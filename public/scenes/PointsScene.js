@@ -2,9 +2,6 @@ import { generateBackground, generateFullScreenButton, generateSpeakerButton } f
 import {app, auth, provider, signInWithPopup, writeUserData} from "./../src/firebaseInit.js";
 import { config } from "./../game.js";
 
-let waterLost;
-let carbonGain;
-
 
 export default class PointsScene extends Phaser.Scene {
     constructor () {
@@ -28,13 +25,13 @@ export default class PointsScene extends Phaser.Scene {
         this.add.bitmapText(100, 15, 'casualTitle', 'Game over!', 32)
             .setLetterSpacing(17);  
             //.setTint(0x423c56);
-        this.add.bitmapText(100, 70, 'casual', 'Total water lost: ' + waterLost, 16)
+        this.add.bitmapText(100, 70, 'casual', 'Total water lost: ' + this.waterLost, 16)
             .setTint(0x423c56)
             .setLetterSpacing(1.12);  
-        this.add.bitmapText(100, 102, 'casual', 'Total carbon gain: ' + carbonGain, 16)
+        this.add.bitmapText(100, 102, 'casual', 'Total carbon gain: ' + this.carbonGain, 16)
             .setTint(0x423c56)
             .setLetterSpacing(1.12);  
-        this.add.bitmapText(100, 134, 'casual', 'Water Use Efficiency: ' + (carbonGain/waterLost).toFixed(3), 16)
+        this.add.bitmapText(100, 134, 'casual', 'Water Use Efficiency: ' + (this.carbonGain/this.waterLost).toFixed(3), 16)
             .setTint(0x423c56)
             .setLetterSpacing(1.12);  
 
@@ -188,8 +185,8 @@ function generateKeyboard(scene, X, Y){
             scene.submitText.setTint(0xff0000)
             let name = scene.name.text.substring(6)
             if(name){
-                writeUserData(100, 100, name);
-                //writeUserData(scene.waterLost, scene.carbonGain, name);
+                //writeUserData(100, 100, name);
+                writeUserData(scene.waterLost, scene.carbonGain, name);
                 scene.scene.stop('Points');
                 scene.scene.start('LeaderBoard');
             } else {

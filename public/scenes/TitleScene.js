@@ -8,10 +8,11 @@ export default class TitleScene extends Phaser.Scene {
 
 
     preload () {
+        //this.load.audio('music', './assets/Game_music.mp3' );
+        this.load.audio('music', './assets/testPHASER.mp3' );
         this.load.image('tree','./assets/tree.png');
         this.load.image('leaf','./assets/leaf.png');
         this.load.image('speaker','./assets/speaker.png');
-        this.load.audio('music', './assets/testPHASER.ogg');
         this.load.bitmapFont('casual', './fonts/Unnamed.png', './fonts/Unnamed.xml');
         this.load.bitmapFont('casualTitle', './fonts/Title.png', './fonts/Title.xml');
         this.load.image('guardcell','./assets/guardcell.png');
@@ -56,7 +57,7 @@ export default class TitleScene extends Phaser.Scene {
         this.add.image(550, 270,'tree')
         this.add.image(325, 220,'leaf').setScale(1.5)
 
-        //setting up sound
+        // //setting up sound
         this.sys.game.soundTest = this.sys.game.sound.add('music');
         this.sys.game.soundTest.play({
             loop: true

@@ -26,12 +26,6 @@ export function moleculeTimedEvents(t)
         loop: true
     });
 
-    // t.timedEvent2 = t.time.addEvent({
-    //     delay:1000 * t.gameSpeed,
-    //     callback: newH2Oevent,
-    //     callbackScope: t,
-    //     loop: true
-    // })
 }
     
 
@@ -91,11 +85,10 @@ function createH2Oatom(t)
 
     atom.lifeSpan = t.time.addEvent({
         args: atom,
-        delay: Phaser.Math.Between(5000,15000),
+        delay: Phaser.Math.Between(10000,20000),
         paused: true,
         callback: () => {
-            console.log("GONE");
-            atom.setDepth(-3);
+            atom.setAlpha(0);
             atom.setActive(false);
             atom.lifeSpan.paused = true;
             calculateWaterLevel(t);
@@ -139,40 +132,3 @@ function newCO2event()
     }
     
 }
-
-function newH2Oevent()
-{
-    let inactiveH2O = []
-    this.H2Ogroup.getChildren().forEach(child => {
-        if(child.active == false){
-            inactiveH2O.push(child);
-        }
-    })
-
-    if(inactiveH2O.length >= 2){
-        inactiveH2O[0].setVisible(true);
-        inactiveH2O[0].setActive(true);
-        inactiveH2O[0].x = 10;
-        inactiveH2O[0].y = (Math.random() * (this.thickness-50)) + this.epidermisY1 + (25);
-        inactiveH2O[0]
-            .setVelocityY(50 * this.atomSpeed)
-            .setVelocityX((Math.random() * (150 * this.atomSpeed)) - ((150 * this.atomSpeed)/2))
-            .setBounce(bounce)
-            .setCollideWorldBounds(true);
-        
-        inactiveH2O[1].setVisible(true);
-        inactiveH2O[1].setActive(true);
-        inactiveH2O[1].x = this.worldWidth - 10;
-        inactiveH2O[1].y = (Math.random() * (this.thickness-50)) + this.epidermisY1 + (25);
-        inactiveH2O[1]
-            .setVelocityY(50 * this.atomSpeed)
-            .setVelocityX((Math.random() * (150 * this.atomSpeed)) - ((150 * this.atomSpeed)/2))
-            .setBounce(bounce)
-            .setCollideWorldBounds(true);
-    }
-
-}
-
-
-
-

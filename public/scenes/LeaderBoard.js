@@ -1,4 +1,4 @@
-import {get, dbRef, child} from "./../src/firebaseInit.js";
+import {get, dbRef, child, uid} from "./../src/firebaseInit.js";
 import { config } from "./../game.js";
 import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
 import { eventsCenter, resetEvents } from "../src/eventsCenter.js";
@@ -16,7 +16,7 @@ export default class LeaderBoardScene extends Phaser.Scene {
 
         ///camera
         this.cameras.main
-            .setBounds(0, 0, 650, 1000)
+            .setBounds(0, 0, 650, 4000)
             .centerOn(650/2, 1000)
 
         this.input.on("pointermove", function (p) {
@@ -29,18 +29,19 @@ export default class LeaderBoardScene extends Phaser.Scene {
         })
 
         ///background
-        generateBackground(this, 0x537c44, 0xf8f644, 1000, 1000);
-        // this.background = this.add.graphics()
-        //     .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
-        //     .fillRect(-1500, -1500, 1500*2, 1500*2)
+        // generateBackground(this, 0x537c44, 0xf8f644, 1000, 1000);
+        this.background = this.add.graphics()
+            .fillGradientStyle(0x537c44,0x537c44,0xf8f644,0xf8f644, 0.7)
+            .fillRect(-1500, -1500, 1500*2, 1500*2)
+            .setScale(100, 100)
 
-        // this.tweens.add({
-        //     targets: this.background,
-        //     angle:360,
-        //     ease:'linear',
-        //     loop:-1,
-        //     duration: 5000
-        // })
+        this.tweens.add({
+            targets: this.background,
+            angle:360,
+            ease:'linear',
+            loop:-1,
+            duration: 5000
+        })
 
 
         generateSpeakerButton(this);
@@ -64,10 +65,14 @@ export default class LeaderBoardScene extends Phaser.Scene {
         this.add.bitmapText(30, 20, 'casualTitle', 'Leaderboard!', 42)
             .setLetterSpacing(10);
         
-        this.add.bitmapText(140, 100, 'casualTitle', 'Name', 24)
+        this.add.bitmapText(100, 100, 'casualTitle', 'Name', 24)
             .setLetterSpacing(12);
         
-        this.add.bitmapText(360, 100, 'casualTitle', 'WUE', 24)
+        this.add.bitmapText(250, 100, 'casualTitle', 'WUE', 24)
+            .setLetterSpacing(12);
+
+
+        this.add.bitmapText(430, 100, 'casualTitle', 'CO2', 24)
             .setLetterSpacing(12);
 
         this.data.set("LeaderBoardData", null);
@@ -93,27 +98,39 @@ export default class LeaderBoardScene extends Phaser.Scene {
                 let dataArray = this.data.values.LeaderBoardData
                     .flat(1)
                     .filter(a => typeof(a) === 'object')
-                    .sort((a,b) => b.WUE - a.WUE)
-                    .slice(0, 15);
+                    .sort((a,b) => b.carbonGain - a.carbonGain)
+                    // .sort((a,b) => ((1/b.WUE) * b.carbonGain) - ((1/a.WUE) * a.carbonGain))
+                    .slice(0, 100);
                 
                 
                 
                 dataArray.forEach((element, i) => {
                     let color = (i === 0) ? 0xff0000 : 0x423c56;
 
-                    this.add.bitmapText(50, (i * 50) + 150, 'casualTitle', String(i+1), 24, 2)
+                    if(uid){
+                        if(element.uid === uid.accessToken){
+                            color = 0x0000ff;
+                        }
+                    }
+
+                    
+
+                    this.add.bitmapText(25, (i * 50) + 150, 'casualTitle', String(i+1), 24, 2)
                         .setLetterSpacing(15);
-                    this.add.bitmapText(150, (i * 50) + 150, 'casual', element.userName, 24)
+                    this.add.bitmapText(100, (i * 50) + 150, 'casual', element.userName, 24)
                         .setLetterSpacing(10)
                         .setTint(color);
-                    this.add.bitmapText(350, (i * 50) + 150, 'casual', element.WUE, 24)
+                    this.add.bitmapText(250, (i * 50) + 150, 'casual', element.WUE, 24)
+                        .setLetterSpacing(10)
+                        .setTint(color);
+                    this.add.bitmapText(430, (i * 50) + 150, 'casual', element.carbonGain, 24)
                         .setLetterSpacing(10)
                         .setTint(color);
                 });
 
             ///restart
 
-            this.submitButton = this.add.rectangle(570, 160, 120, 50, 0xff0000)
+            this.submitButton = this.add.rectangle(580, 160, 120, 50, 0xff0000)
                 .setAlpha(0.4)
                 .setInteractive()
                 .setOrigin(0.5, 0.5)
@@ -124,7 +141,7 @@ export default class LeaderBoardScene extends Phaser.Scene {
                     this.submitButton.setAlpha(0.4)
                 })
             
-            this.submitText = this.add.bitmapText(570, 165, 'casual', 'Restart', 18)
+            this.submitText = this.add.bitmapText(580, 165, 'casual', 'Restart', 18)
                 .setOrigin(0.5, 0.5)
                 .setInteractive()
                 .on('pointerdown', () => {
