@@ -1,48 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2022.44">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000; min-height: 24.0px}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 35.0px; font: 40.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000; min-height: 14.0px}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 35.0px; font: 16.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000}
-    p.p6 {margin: 0.0px 0.0px 18.0px 0.0px; line-height: 30.0px; font: 18.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000}
-    p.p7 {margin: 0.0px 0.0px 12.0px 0.0px; line-height: 30.0px; font: 12.0px 'Casual Encounter'; color: #000000; -webkit-text-stroke: #000000}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Casual Encounter'; color: #0000e9; -webkit-text-stroke: #0000e9}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; color: #fb0007; -webkit-text-stroke: 0px #fb0007}
-    span.s3 {font-kerning: none; color: #b38b3d; -webkit-text-stroke: 0px #b38b3d}
-    span.s4 {font-kerning: none; color: #47599f; -webkit-text-stroke: 0px #47599f}
-    span.s5 {text-decoration: underline ; font-kerning: none; background-color: #f2f2f2}
-    span.s6 {font-kerning: none; background-color: #f2f2f2}
-    span.s7 {font-kerning: none; color: #0b5401; background-color: #f2f2f2; -webkit-text-stroke: 0px #0b5401}
-    span.s8 {font-kerning: none; color: #b38b3d; background-color: #f2f2f2; -webkit-text-stroke: 0px #b38b3d}
-    span.s9 {font-kerning: none; color: #47599f; background-color: #f2f2f2; -webkit-text-stroke: 0px #47599f}
-    span.s10 {font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
-    span.s11 {text-decoration: underline ; font-kerning: none; color: #0000e9; -webkit-text-stroke: 0px #0000e9}
-  </style>
+    <meta charset="UTF-8">
+    <style media='screen' type='text/css'>
+        @font-face {
+          font-family: font1;
+          src: url('./fonts/CasualEncounter.ttf');
+          font-weight:normal;
+        }
+    </style>
+    <script src="./phaser.min.js"></script>
+    <script src="./game.js" type="module"></script>
+    <title>You Are A Leaf</title>
 </head>
 <body>
-<p class="p1"><span class="s1"></span><br></p>
-<p class="p2"><span class="s1">What's Stomata?</span></p>
-<p class="p3"><span class="s1"></span><br></p>
-<p class="p4"><span class="s1">You have </span><span class="s2">5</span><span class="s1"> mins to be the best leaf!</span></p>
-<p class="p5"><span class="s1">Control the movement of stomata *and* the development of leaf cells to gain as much </span><span class="s3">CO2</span><span class="s1"> for photosynthesis and lose as little </span><span class="s4">H2O</span><span class="s1"> as possible<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1"></span><br></p>
-<p class="p3"><span class="s1"></span><br></p>
-<p class="p5"><span class="s1">These cells are mesophyll cells. They are photosynthetic and will fix </span><span class="s3">CO2</span><span class="s1">.<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1"></span><br></p>
-<p class="p5"><span class="s1">These are stomata and will help you control the movement of </span><span class="s3">CO2</span><span class="s1"> and </span><span class="s4">H2O</span><span class="s1">.<span class="Apple-converted-space"> </span></span></p>
-<p class="p6"><span class="s5">Further details!</span><span class="s6"><span class="Apple-converted-space"> </span></span></p>
-<p class="p7"><span class="s6">Stomata are microscopic pores found on the surfaces of plants that play a critical role in plant gas exchange. They allow plants to rapidly respond to changes in their environment, optimising carbon uptake and waterloss. Often plant breeders are trying to increase the </span><span class="s7">water use efficiency (WUE)</span><span class="s6"> of their crops. We can think of </span><span class="s7">WUE</span><span class="s6"> as the amount of water lost for every carbon atom taken up and fixed via photosynthesis (</span><span class="s8">CO2</span><span class="s6">/</span><span class="s9">H2O</span><span class="s6">)<span class="Apple-converted-space"> </span></span></p>
-<p class="p7"><span class="s6">By selectively breeding plants with altered stomatal characteristics (eg decreased numbers of stomata and faster moving stomata), scientists are trying to alter crop </span><span class="s7">WUE</span><span class="s6"> traits.<span class="Apple-converted-space"> </span></span></p>
-<p class="p7"><span class="s6">In this game, you can control leaf development and stomatal movements to achieve the highest </span><span class="s7">WUE</span><span class="s6"> (ie get the most carbon while losing as little water as possible).<span class="Apple-converted-space"> </span></span></p>
-<p class="p8"><span class="s10">Made by <a href="https://twitter.com/AJPridgeon"><span class="s11">Ashley Pridgeon</span></a><span class="Apple-converted-space"> </span></span></p>
+    <div class="fontPreload" style="font-family: font1;"></div>
+
+
+    <div class="mainContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw;">
+       
+
+        <div id="test" style="max-height: 350px;" ></div>
+    </div>
+
 </body>
 </html>

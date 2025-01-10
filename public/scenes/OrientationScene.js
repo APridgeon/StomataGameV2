@@ -1,6 +1,6 @@
 import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js"
 import { config } from "./../game.js";
-import { uid, signInWithPopup, auth, provider, onAuthStateChanged, signOut } from "../src/firebaseInit.js";
+import { uid, signInWithPopup, auth, provider, onAuthStateChanged } from "../src/firebaseInit.js";
 
 export default class OrientationScene extends Phaser.Scene {
     constructor () {
@@ -61,70 +61,11 @@ export default class OrientationScene extends Phaser.Scene {
                 this.signInText.clearTint()
             })
 
-        this.signedInButton = this.add.rectangle(config.scale.width/2 -75, 270, 450, 90, 0xff0000)
-            .setOrigin(0.5, 0.5)
-            .setAlpha(0.4)
-            .setVisible(false);
-        
-        this.signedInText = this.add.bitmapText(config.scale.width/2 - 75, 275, 'casual', 'Hello: ', 18, 1)
-            .setOrigin(0.5, 0.5)
-            .setVisible(false);
-
-        this.signOutButton = this.add.rectangle(config.scale.width/2 + 225, 270, 100, 90, 0xff0000)
-            .setOrigin(0.5, 0.5)
-            .setAlpha(0.4)
-            .setVisible(false);
-        
-        this.signOutText = this.add.bitmapText(config.scale.width/2 + 225, 275, 'casual', 'Sign\nOut!', 18, 1)
-            .setOrigin(0.5, 0.5)
-            .setInteractive()
-            .on('pointerdown', () => {
-                this.signOutText.setTint(0xff0000)
-                signOut(auth);
-            })
-            .on('pointerup', () => {
-            })
-            .on('pointerover', () => {
-                this.signOutButton.setAlpha(0.9)
-            })
-            .on('pointerout', () => {
-                this.signOutButton.setAlpha(0.4)
-                this.signOutText.clearTint()
-            })
-            .setVisible(false);
-        
-
-
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    this.signedInText
-                        .setText("Hello: " + user.displayName)
-                        .setVisible(true);
-                    this.signedInButton
-                        .setVisible(true);
-                    this.signOutButton
-                        .setVisible(true);
-                    this.signOutText
-                        .setVisible(true);
-                    this.signInText
-                        .setVisible(false);
-                    this.signInButton
-                        .setVisible(false);
-                    console.log("Logged In");
+                  this.signInText.text = "You are signed in as: " + user.displayName;
                 } else {
-                    this.signedInText
-                        .setVisible(false);
-                    this.signedInButton
-                        .setVisible(false);
-                    this.signOutButton
-                        .setVisible(false);
-                    this.signOutText
-                        .setVisible(false);
-                    this.signInText
-                        .setVisible(true);
-                    this.signInButton
-                        .setVisible(true);
-                    console.log("Logged Out");
+                  uid = null;
                 }
               });
 

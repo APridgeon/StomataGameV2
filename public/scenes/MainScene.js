@@ -71,7 +71,7 @@ export default class MainScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', (item1) => destroyOutOfBounds(item1, this));
 
         //Game background
-        generateBackground(this, 0x262156, 0x87d1c7, this.worldWidth, this.worldHeight, 3000);
+        generateBackground(this, 0x262156, 0x87d1c7, this.worldWidth, this.worldHeight);
 
         //Leaf background
         this.add.rectangle(0, this.epidermisY1 + 5, this.worldWidth, this.thickness, 0xa0b335, 0.6)

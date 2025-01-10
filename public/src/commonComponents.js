@@ -1,5 +1,5 @@
 //Generating rotating shaded background
-function generateBackground (scene, colour1, colour2, width, height, duration=3000) {
+function generateBackground (scene, colour1, colour2, width, height) {
     scene.background = scene.add.graphics({x: width/2, y: height/2})
         .fillGradientStyle(colour1, colour1, colour2, colour2, 0.7)
         .fillRect(-(width*1.5)/2, -(width*1.5)/2, width*1.5, width*1.5)
@@ -10,7 +10,7 @@ function generateBackground (scene, colour1, colour2, width, height, duration=30
         angle:360,
         ease:'linear',
         loop:-1,
-        duration: duration
+        duration: 3000
     });
 };
 

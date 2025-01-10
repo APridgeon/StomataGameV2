@@ -13,8 +13,8 @@ export default class UIScene extends Phaser.Scene {
 
     create () {
 
-        this.add.rectangle(0, 0, 650, 60, 0xffffff, 0.7).setOrigin(0,0);
-        this.add.rectangle(0, 280, 650, 350, 0xffffff, 0.7).setOrigin(0,0);
+        this.add.rectangle(0, 0, 650, 60, 0xffffff, 0.5).setOrigin(0,0);
+        this.add.rectangle(0, 280, 650, 350, 0xffffff, 0.5).setOrigin(0,0);
 
         //parameters
         this.fontSize = 11.2;
@@ -96,10 +96,6 @@ export default class UIScene extends Phaser.Scene {
             .on('pointerdown', () => {
                 if(this.data.values.points >= 20){
                     this.palisadeButton.setTint(0xf00000);
-                    this.stomataButton.getChildren().forEach(child2 => {
-                        child2.clearTint();
-                    });
-                    this.spongeButton.clearTint();
                     this.instructText.text = "Click to place\nthe cell";
                     eventsCenter.emit('create-pallisade');
                 }
@@ -141,8 +137,6 @@ export default class UIScene extends Phaser.Scene {
                         this.stomataButton.getChildren().forEach(child2 => {
                             child2.setTint(0xf00000);
                         });
-                        this.palisadeButton.clearTint();
-                        this.spongeButton.clearTint();
                         this.instructText.text = "Click to place\nthe cell"
                         eventsCenter.emit('create-stomata');
                     }
@@ -180,10 +174,6 @@ export default class UIScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerdown', () => {
                 if(this.data.values.points >= 5){
-                    this.stomataButton.getChildren().forEach(child => {
-                        child.clearTint();
-                    });
-                    this.palisadeButton.clearTint();
                     this.spongeButton.setTint(0xf00000);
                     this.instructText.text = "Click to place\nthe cell";
                     eventsCenter.emit('create-sponge');
@@ -237,38 +227,6 @@ export default class UIScene extends Phaser.Scene {
 
 
         //Game events
-        this.add.bitmapText(325, 20,'casual',  'Time Remaining', this.fontSize)
-            .setOrigin(0.5,0.5)
-            .setTint(0x000000)
-            .setLetterSpacing(1.12);
-
-        this.gameTimeText = this.add.bitmapText(325, 40,'casual',  '5:00', this.fontSize)
-            .setOrigin(0.5,0.5)
-            .setTint(0x000000)
-            .setLetterSpacing(1.12);
-
-        this.timeLimitTimer = this.time.addEvent({
-            delay: 5 * 60 * 1000 ,
-            callback: () => {
-                eventsCenter.emit('endScene');
-                this.scene.stop('UI');
-                if(uid){
-                    this.scene.start('Points', {
-                        waterLost: this.data.get('waterLost'),
-                        carbonGain: this.data.get('carbonGain')
-                    })
-                } else {
-                    this.scene.start('LeaderBoard');
-                }
-            },
-            callbackScope: this,
-            loop: false,
-            repeat: -1,
-            startAt: 0,
-            timeScale: 1,
-            paused: false
-        })
-
 
         //GameOver
         this.gameOverTime = this.time.addEvent({
@@ -346,18 +304,6 @@ export default class UIScene extends Phaser.Scene {
         }
 
 
-    }
-
-    update(){
-        let rawTime = (5*60) -  this.timeLimitTimer.getElapsedSeconds().toString().split('.')[0];
-        let mins = (((rawTime % 3600) / 60) ).toString().split('.')[0];
-        let secs = (rawTime % 60).toFixed(0);
-        if(secs < 10){
-            mins += ":0"
-        } else {
-            mins += ":"
-        }
-        this.gameTimeText.setText(mins+secs);
     }
 
 }

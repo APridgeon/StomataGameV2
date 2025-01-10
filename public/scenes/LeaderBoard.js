@@ -1,4 +1,4 @@
-import {get, dbRef, child, uid} from "./../src/firebaseInit.js";
+import {get, dbRef, child} from "./../src/firebaseInit.js";
 import { config } from "./../game.js";
 import { generateBackground, generateFullScreenButton, generateSpeakerButton } from "../src/commonComponents.js";
 import { eventsCenter, resetEvents } from "../src/eventsCenter.js";
@@ -64,14 +64,10 @@ export default class LeaderBoardScene extends Phaser.Scene {
         this.add.bitmapText(30, 20, 'casualTitle', 'Leaderboard!', 42)
             .setLetterSpacing(10);
         
-        this.add.bitmapText(100, 100, 'casualTitle', 'Name', 24)
+        this.add.bitmapText(140, 100, 'casualTitle', 'Name', 24)
             .setLetterSpacing(12);
         
-        this.add.bitmapText(250, 100, 'casualTitle', 'WUE', 24)
-            .setLetterSpacing(12);
-
-
-        this.add.bitmapText(400, 100, 'casualTitle', 'CO2', 24)
+        this.add.bitmapText(360, 100, 'casualTitle', 'WUE', 24)
             .setLetterSpacing(12);
 
         this.data.set("LeaderBoardData", null);
@@ -97,31 +93,20 @@ export default class LeaderBoardScene extends Phaser.Scene {
                 let dataArray = this.data.values.LeaderBoardData
                     .flat(1)
                     .filter(a => typeof(a) === 'object')
-                    .sort((a,b) => b.carbonGain - a.carbonGain)
-                    .slice(0, 35);
+                    .sort((a,b) => b.WUE - a.WUE)
+                    .slice(0, 15);
                 
                 
                 
                 dataArray.forEach((element, i) => {
                     let color = (i === 0) ? 0xff0000 : 0x423c56;
 
-                    if(uid){
-                        if(element.uid === uid.accessToken){
-                            color = 0x0000ff;
-                        }
-                    }
-
-                    
-
-                    this.add.bitmapText(25, (i * 50) + 150, 'casualTitle', String(i+1), 24, 2)
+                    this.add.bitmapText(50, (i * 50) + 150, 'casualTitle', String(i+1), 24, 2)
                         .setLetterSpacing(15);
-                    this.add.bitmapText(100, (i * 50) + 150, 'casual', element.userName, 24)
+                    this.add.bitmapText(150, (i * 50) + 150, 'casual', element.userName, 24)
                         .setLetterSpacing(10)
                         .setTint(color);
-                    this.add.bitmapText(250, (i * 50) + 150, 'casual', element.WUE, 24)
-                        .setLetterSpacing(10)
-                        .setTint(color);
-                    this.add.bitmapText(400, (i * 50) + 150, 'casual', element.carbonGain, 24)
+                    this.add.bitmapText(350, (i * 50) + 150, 'casual', element.WUE, 24)
                         .setLetterSpacing(10)
                         .setTint(color);
                 });

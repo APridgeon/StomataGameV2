@@ -3,6 +3,8 @@ import { CO2palisade } from "./palisade.js";
 export function intialiseSponges(scene)
 {
     scene.sponges = scene.physics.add.group();
+    scene.spongeTweens = [];
+    scene.spongeDelays = [];
     scene.spongeStomataBoundingBoxes = scene.physics.add.group();
 }
 
@@ -61,15 +63,16 @@ export function makeSponge(X, Y, t)
     })
 
     //this adds the palisade animation + delay
-    sponge.Delay = t.time.addEvent({delay: 10000, 
+    let spongeDelay = t.time.addEvent({delay: 10000, 
         callback: function() {
             sponge.clearTint();
             sponge.data.set('active', true);
-            sponge.Delay.paused = true;
+            spongeDelay.paused = true;
         }, callbackScope: t, repeat: -1})
 
+    t.spongeDelays.push(spongeDelay);
             
-    sponge.Tweens = t.add.tween({
+    t.spongeTweens.push( t.add.tween({
         targets: sponge,
         scaleX: 0.7,
         scaleY: 0.7,
@@ -81,8 +84,8 @@ export function makeSponge(X, Y, t)
             sponge.clearTint();
             sponge.setTint(0xf00000);
             sponge.data.set('active', false);
-            sponge.Delay.paused = false;
+            spongeDelay.paused = false;
         }
-    });
+    }));
 
 };
